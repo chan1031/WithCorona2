@@ -39,6 +39,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
 
-
+    // 서버 통신에 필요한 volely 라이브러리 설치
+    implementation 'com.android.volley:volley:1.1.1'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
 }
 

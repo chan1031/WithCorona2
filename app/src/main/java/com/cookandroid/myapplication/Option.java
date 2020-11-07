@@ -1,12 +1,12 @@
-package com.cookandroid.myapplication.login;
+package com.cookandroid.myapplication;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -14,18 +14,20 @@ import androidx.fragment.app.Fragment;
 
 import com.cookandroid.myapplication.R;
 
-public class MapDetial extends Fragment  {
-
-    Toolbar toolbar;
+public class Option extends Fragment {
+    protected Activity mActivity;
     private View view;
+    private TextView password;
+    private TextView locationSet;
+    private int flagNum;
+    Toolbar toolbar;
 
 
-
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.frame_news, container, false);
-        toolbar = (Toolbar) view.findViewById(R.id.NewsToolBar);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.frame_option, container, false);
+
+        toolbar = (Toolbar) view.findViewById(R.id.OptionToolBar);
 
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.setSupportActionBar(toolbar);
@@ -43,9 +45,13 @@ public class MapDetial extends Fragment  {
                 getActivity().onBackPressed();
             }
         });
-
-
-
-        return view;
+        return null;
     }
-}
+    }
+
+
+
+
+
+
+

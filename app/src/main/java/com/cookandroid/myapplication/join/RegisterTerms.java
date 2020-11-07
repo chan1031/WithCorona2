@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.cookandroid.myapplication.R;
 
-public class Terms extends AppCompatActivity {
+public class RegisterTerms extends AppCompatActivity {
     private RadioGroup rg;
     private Button nextButton;
     Toolbar toolbar;
@@ -36,7 +37,7 @@ public class Terms extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(), Join.class);
+                Intent intent=new Intent(getApplicationContext(), Register.class);
                 startActivity(intent);
 
             }
@@ -59,7 +60,7 @@ public class Terms extends AppCompatActivity {
 
         });
 
-        }
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
