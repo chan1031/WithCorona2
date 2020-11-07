@@ -23,6 +23,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.cookandroid.myapplication.Giofencing.GpsService;
 import com.cookandroid.myapplication.Gps.SubActivity;
+import com.cookandroid.myapplication.News.NewsActivity;
 import com.cookandroid.myapplication.join.Register;
 import com.google.android.material.navigation.NavigationView;
 
@@ -159,7 +160,7 @@ public boolean onNavigationItemSelected(MenuItem item){
                 startActivity(intent);
                 break;
             case R.id.navigation_item_news:
-                intent=new Intent(getApplicationContext(),Register.class);
+                intent=new Intent(getApplicationContext(), NewsActivity.class);
                 startActivity(intent);
                 break;
             case R.id.navigation_item_timeline:
