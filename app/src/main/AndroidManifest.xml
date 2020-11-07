@@ -28,6 +28,8 @@
         </activity>
 
         <activity android:name=".login.LoginPage"/>
+        <activity android:name=".News.NewsActivity"/>
+        <activity android:name=".News.Detailed"/>
         <activity android:name=".MainActivity"/>
         <activity android:name=".join.RegisterTerms"/>
         <activity android:name=".join.Register"/>
