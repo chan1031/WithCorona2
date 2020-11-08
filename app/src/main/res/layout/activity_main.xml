@@ -7,11 +7,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    <ScrollView
 
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+        android:layout_height="match_parent"
+    android:layout_width="match_parent">
 
     <LinearLayout
     android:layout_width="match_parent"
@@ -43,6 +42,15 @@ android:orientation="vertical">
             android:text="With Corona"
             android:textSize="20dp"
             android:textColor="@android:color/black"/>
+        <Button
+            android:id="@+id/Option_Button"
+            android:layout_gravity="right"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+android:layout_marginRight="10dp"
+            android:background="@drawable/option_icon"
+            android:stateListAnimator="@null"/>
+
     </androidx.appcompat.widget.Toolbar>
     <View
         android:layout_width="match_parent"
@@ -51,6 +59,8 @@ android:orientation="vertical">
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:background="#E9E7E7" />
+
+
     </LinearLayout>
 
 
@@ -249,14 +259,14 @@ android:id="@+id/getDateTime"
                     android:src="@drawable/shape_red_2_1" />
 
                 <TextView
-                    android:id="@+id/view1"
+                    android:id="@+id/DECIDE_CNT"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="75dp"
                     android:layout_marginTop="50dp"
-                    android:text="-"
+
                     android:textStyle="bold"
-                    android:textSize="16dp"
+                    android:textSize="23dp"
                     android:textColor="#E76363" />
             </FrameLayout>
             <FrameLayout
@@ -271,6 +281,7 @@ android:id="@+id/getDateTime"
         android:layout_marginLeft="25dp"
         android:background="@drawable/shape_blue_2_1" />
                 <TextView
+                    android:id="@+id/CLEAR_CNT"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
@@ -314,6 +325,7 @@ android:id="@+id/getDateTime"
                     android:adjustViewBounds="true"
                     android:background="@drawable/shape_black_2_1" />
                         <TextView
+                            android:id="@+id/DEATH_CNT"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
@@ -336,6 +348,7 @@ android:id="@+id/getDateTime"
 
                         />
                         <TextView
+                            android:id="@+id/EXAM_CNT"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="-"
@@ -389,18 +402,9 @@ android:id="@+id/getDateTime"
         android:layout_marginTop="15dp"
         android:text="누적 검사수"
         android:textSize="17dp"/>
-                <TextView
 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="190dp"
-                    android:layout_marginLeft="190dp"
-                    android:layout_marginTop="15dp"
-
-                    android:text="인원"
-                    android:textSize="17dp" />
     <TextView
-        android:id="@+id/textView17"
+        android:id="@+id/ACC_EXAM_CNT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
@@ -428,16 +432,7 @@ android:id="@+id/getDateTime"
                     android:text="누적 검사완료수"
                     android:textSize="17dp"/>
 
-                <TextView
 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="160dp"
-                    android:layout_marginLeft="160dp"
-                    android:layout_marginTop="50dp"
-
-                    android:text="인원"
-                    android:textSize="17dp" />
                 <TextView
 
                     android:layout_width="wrap_content"
