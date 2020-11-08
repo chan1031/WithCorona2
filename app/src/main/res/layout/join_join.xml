@@ -50,9 +50,9 @@
 
     <LinearLayout
         android:layout_width="374dp"
-        android:layout_height="472dp"
+        android:layout_height="620dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
+android:layout_marginBottom="20dp"
         android:background="@drawable/join_border"
         android:orientation="vertical">
 
@@ -70,7 +70,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/et_id"
+                android:id="@+id/id"
                 android:layout_width="238dp"
                 android:layout_height="42dp"
                 android:layout_marginLeft="20dp"
@@ -79,11 +79,11 @@
                 android:hint=" 아이디를 입력해주세요" />
 
             <Button
-                android:id="@+id/IdCheck"
+                android:id="@+id/btnCheck"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="중복 확인" />
+                android:text="중복 확인"
+                android:layout_marginLeft="10dp" />
         </LinearLayout>
 
         <TextView
@@ -95,7 +95,7 @@
             android:text="비밀번호" />
 
         <EditText
-            android:id="@+id/et_pass"
+            android:id="@+id/pass"
             android:layout_width="237dp"
             android:layout_height="42dp"
             android:layout_marginLeft="20dp"
@@ -113,7 +113,7 @@
             android:text="비밀번호 확인" />
 
         <EditText
-            android:id="@+id/et_passCheck"
+            android:id="@+id/passCheak"
             android:layout_width="237dp"
             android:layout_height="42dp"
             android:layout_marginLeft="20dp"
@@ -130,9 +130,8 @@
             android:layout_marginTop="10dp"
             android:text="이름" />
 
-
         <EditText
-            android:id="@+id/et_name"
+            android:id="@+id/name"
             android:layout_width="238dp"
             android:layout_height="42dp"
             android:layout_marginLeft="20dp"
@@ -140,24 +139,47 @@
             android:gravity="left|center"
             android:hint=" 이름을 입력해 주세요" />
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"/>
+
         <TextView
-            android:id="@+id/nameText2"
+            android:id="@+id/hometext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
-            android:text="전화번호" />
+            android:text="집 주소 설정" />
+
 
         <EditText
-            android:id="@+id/et_tel"
-            android:layout_width="237dp"
-            android:layout_height="42dp"
+            android:id="@+id/home"
+            android:layout_width="325dp"
+            android:layout_height="36dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/border"
             android:gravity="left|center"
-            android:hint="전화번호를 입력해주세요" />
+            android:hint="" />
 
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/mapView"
+            android:layout_width="325dp"
+            android:layout_height="164dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp" />
 
+        <Button
+            android:id="@+id/setting"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="주소 설정" />
     </LinearLayout>
 
     <LinearLayout
