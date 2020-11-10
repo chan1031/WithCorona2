@@ -211,12 +211,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             EXAM_cnt.setText(EXAM_cnt.getText()+EXAM_CNT+"명");
                             ACC_EXAM_cnt.setText(ACC_EXAM_cnt.getText()+ACC_EXAM_CNT+"건");
 
-
-
-
-
-
-
                         }
                         initem = false;
                         break;

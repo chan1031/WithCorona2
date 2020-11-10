@@ -7,6 +7,7 @@ import android.icu.text.SimpleDateFormat;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +28,9 @@ import com.cookandroid.myapplication.News.NewsActivity;
 import com.cookandroid.myapplication.join.Register;
 import com.google.android.material.navigation.NavigationView;
 
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -35,7 +39,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -81,58 +87,155 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // ------------------
 
 
-
-        // 이거 뭐임?
-       /* getKorea = (TextView) findViewById(R.id.getKorea);
+//이건 시간
+        getKorea = (TextView) findViewById(R.id.getKorea);
         getDate = (TextView) findViewById(R.id.getDate);
         getDateTime = (TextView) findViewById(R.id.getDateTime);
         getForeign = (TextView) findViewById(R.id.getForeign);
 
         getDate.setText(year + "." + month + "." + day + " 현재 코로나 위기 경보 ");
         getDateTime.setText(year + "." + month + "." + day + " 00:00 기준");
+//이건 하고 있는 중
+        TextView DECIDE_cnt= (TextView) findViewById(R.id.DECIDE_CNT);
+        TextView DEATH_cnt= (TextView) findViewById(R.id.DEATH_CNT);
+        TextView EXAM_cnt= (TextView) findViewById(R.id.EXAM_CNT);
+        TextView CLEAR_cnt= (TextView) findViewById(R.id.CLEAR_CNT);
+        TextView ACC_EXAM_cnt= (TextView) findViewById(R.id.ACC_EXAM_CNT);
+        ArrayList<String> DEATH_Count=new ArrayList<String>();
+        boolean initem = false, STATE_DT1 = false, STATE_TIME1 = false, DECIDE_CNT1 = false, CLEAR_CNT1 = false, EXAM_CNT1 = false;
+        boolean DEATH_CNT1 = false, CARE_CNT1 = false, RESUTL_NEG_CNT1 = false, ACC_EXAM_CNT1 = false, ACC_EXAM_COMP_CNT1 = false;
 
+        String STATE_DT = null, STATE_TIME = null, DECIDE_CNT = null, CLEAR_CNT = null, EXAM_CNT = null, DEATH_CNT = null, CARE_CNT = null, RESUTL_NEG_CNT = null;
+        String ACC_EXAM_CNT = null, ACC_EXAM_COMP_CNT = null;
 
-        StringBuilder urlBuilder = new StringBuilder("http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson");
+        Date date_now = new Date(System.currentTimeMillis());
+        java.text.SimpleDateFormat nowDate = new java.text.SimpleDateFormat("yyyyMMdd");
+        StrictMode.enableDefaults();
         try {
-            urlBuilder.append("?" + URLEncoder.encode("SeviceKey", "UTF-8") + "=N7%2FsYqKdRUE7yDEZLUn4sOX8s2P7Ole7gMahYwt6bSx1vIbK3QW2IRDKOzX7pdgOWyjrAX0XAmNMPqdVrrJIww%3D%3D");
-            urlBuilder.append("&" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + URLEncoder.encode("N7%2FsYqKdRUE7yDEZLUn4sOX8s2P7Ole7gMahYwt6bSx1vIbK3QW2IRDKOzX7pdgOWyjrAX0XAmNMPqdVrrJIww%3D%3D", "UTF-8")); *//*공공데이터포털에서 받은 인증키*//*
-            urlBuilder.append("&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); *//*페이지번호*//*
-            urlBuilder.append("&" + URLEncoder.encode("numOfRows", "UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); *//*한 페이지 결과 수*//*
-            urlBuilder.append("&" + URLEncoder.encode("startCreateDt", "UTF-8") + "=" + URLEncoder.encode("20200310", "UTF-8")); *//*검색할 생성일 범위의 시작*//*
-            urlBuilder.append("&" + URLEncoder.encode("endCreateDt", "UTF-8") + "=" + URLEncoder.encode("20200315", "UTF-8")); *//*검색할 생성일 범위의 종료*//*
-//    필수
+            String urlstr = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson?serviceKey=%2F3rq7E7ZGEQNvXiyQaKe6e2CAeuptfcprA0W4pB0mA9hQxN8f1g6jesOAnh9h%2F%2FttPD0glBdwD8QwA4TPzW3IQ%3D%3D&pageNo=1&numOfRows=10&startCreateDt=&endCreateDt=&endCreateDt=";
+             //검색 URL부분
+
+            URL url=new URL(urlstr);
+
+            URLConnection connection=url.openConnection();
+            connection.setDoOutput(true);
+
+            BufferedReader in=new BufferedReader(new InputStreamReader(url.openStream(),"UTF-8"));
 
 
-            URL url = new URL(urlBuilder.toString());
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.setRequestProperty("Content-type", "application/json");
-            System.out.println("Response code: " + conn.getResponseCode());
-            BufferedReader rd;
-            if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
-                rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            } else {
-                rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+            XmlPullParserFactory parserCreator = XmlPullParserFactory.newInstance();
+            XmlPullParser parser = parserCreator.newPullParser();
+            parser.setInput(in);
+
+            int parserEvent = parser.getEventType();
+
+            while (parserEvent != XmlPullParser.END_DOCUMENT) {
+                switch (parserEvent) {
+                    case XmlPullParser.START_TAG:
+                        if (parser.getName().equals("stateDt")) {
+                            STATE_DT1 = true;
+                        }
+                        if (parser.getName().equals("stateTime")) {
+                            STATE_TIME1 = true;
+                        }
+                        if (parser.getName().equals("decideCnt")) {
+                            DECIDE_CNT1 = true;
+                        }
+                        if (parser.getName().equals("clearCnt")) {
+                            CLEAR_CNT1 = true;
+                        }
+                        if (parser.getName().equals("examCnt")) {
+                            EXAM_CNT1 = true;
+                        }
+                        if (parser.getName().equals("deathCnt")) {
+                            DEATH_CNT1 = true;
+                        }
+                        if (parser.getName().equals("careCnt")) {
+                            CARE_CNT1 = true;
+                        }
+                        if (parser.getName().equals("resutlNegCnt")) {
+                            RESUTL_NEG_CNT1 = true;
+                        }
+                        if (parser.getName().equals("accExamCnt")) {
+                            ACC_EXAM_CNT1 = true;
+                        }
+                        if (parser.getName().equals("accExamCompCnt")) {
+                            ACC_EXAM_COMP_CNT1 = true;
+                        }
+
+                        break;
+
+                    case XmlPullParser.TEXT:
+                        if (STATE_DT1) {
+                            STATE_DT = parser.getText();
+                            STATE_DT1 = false;
+
+                        }
+                        if (STATE_TIME1) {
+                            STATE_TIME = parser.getText();
+                            STATE_TIME1 = false;
+
+                        }
+                        if (DECIDE_CNT1) {
+                            DECIDE_CNT = parser.getText();
+                            DECIDE_CNT1 = false;
+
+                        }
+                        if (CLEAR_CNT1) {
+                            CLEAR_CNT = parser.getText();
+                            CLEAR_CNT1 = false;
+                        }
+                        if (EXAM_CNT1) {
+                            EXAM_CNT = parser.getText();
+                            EXAM_CNT1 = false;
+                        }
+                        if (DEATH_CNT1) {
+                            DEATH_CNT = parser.getText();
+                            DEATH_CNT1 = false;
+                        }
+                        if (CARE_CNT1) {
+                            CARE_CNT = parser.getText();
+                            CARE_CNT1 = false;
+                        }
+                        if (RESUTL_NEG_CNT1) {
+                            RESUTL_NEG_CNT = parser.getText();
+                            RESUTL_NEG_CNT1 = false;
+                        }
+                        if (ACC_EXAM_CNT1) {
+                            ACC_EXAM_CNT = parser.getText();
+                            ACC_EXAM_CNT1 = false;
+                        }
+                        if (ACC_EXAM_COMP_CNT1) {
+                            ACC_EXAM_COMP_CNT = parser.getText();
+                            ACC_EXAM_COMP_CNT1 = false;
+                        }
+                        break;
+                    case XmlPullParser.END_TAG:
+                        if (parser.getName().equals("item")) {
+
+                            DECIDE_cnt.setText(DECIDE_cnt.getText()+DECIDE_CNT + " 명");
+                            DEATH_cnt.setText(DEATH_cnt.getText()+DEATH_CNT+"명");
+                            CLEAR_cnt.setText(DEATH_cnt.getText()+CLEAR_CNT+"명");
+                            EXAM_cnt.setText(EXAM_cnt.getText()+EXAM_CNT+"명");
+                            ACC_EXAM_cnt.setText(ACC_EXAM_cnt.getText()+ACC_EXAM_CNT+"건");
+
+
+
+
+
+
+
+                        }
+                        initem = false;
+                        break;
+                }
+                parserEvent = parser.next();
+
             }
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = rd.readLine()) != null) {
-                sb.append(line);
-            }
-            rd.close();
-            conn.disconnect();
-            getKorea.setText(sb);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        } catch (Exception e) {
+
         }
-
-*/
         mToolbar = (Toolbar) findViewById(R.id.mToolBar);
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -254,4 +357,6 @@ public boolean onNavigationItemSelected(MenuItem item){
     // -------------------
 
 
-        }
+
+
+}
