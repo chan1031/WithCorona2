@@ -31,11 +31,12 @@
         <activity android:name=".login.LoginPage"/>
         <activity android:name=".News.NewsActivity"/>
         <activity android:name=".News.Detailed"/>
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".login.MainActivity"/>
         <activity android:name=".Option"/>
         <activity android:name=".PasswordChange"/>
         <activity android:name=".join.RegisterTerms"/>
         <activity android:name=".join.Register"/>
+        <activity android:name=".join.RegisterSuccess"/>
         <activity android:name=".Gps.SubActivity"
             android:launchMode="singleTask"/>
 

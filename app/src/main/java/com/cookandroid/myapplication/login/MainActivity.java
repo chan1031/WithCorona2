@@ -1,46 +1,35 @@
-package com.cookandroid.myapplication;
+package com.cookandroid.myapplication.login;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.icu.text.SimpleDateFormat;
-import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.cookandroid.myapplication.Giofencing.GpsService;
 import com.cookandroid.myapplication.Gps.SubActivity;
-import com.cookandroid.myapplication.News.NewsActivity;
-import com.cookandroid.myapplication.join.Register;
+import com.cookandroid.myapplication.Option;
+import com.cookandroid.myapplication.R;
+import com.cookandroid.myapplication.join.Join;
 import com.google.android.material.navigation.NavigationView;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -48,8 +37,7 @@ import java.util.Locale;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private static final int PERMISSIONS_REQUEST_CODE = 100;
-    String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_BACKGROUND_LOCATION};
+
 
     DrawerLayout drawerLayout;
     private Toolbar mToolbar;
@@ -74,20 +62,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
 
-        //GioFencing Part
-        if (checkLocationServicesStatus()) {
-            checkRunTimePermission();
-        }
-
-        String userID = getIntent().getStringExtra("userID");
-
-        Intent GpsServiceIntent = new Intent(this, GpsService.class);
-        GpsServiceIntent.putExtra("userID",userID);
-        startService(GpsServiceIntent);
-        // ------------------
-
-
-//이건 시간
         getKorea = (TextView) findViewById(R.id.getKorea);
         getDate = (TextView) findViewById(R.id.getDate);
         getDateTime = (TextView) findViewById(R.id.getDateTime);
@@ -95,13 +69,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         getDate.setText(year + "." + month + "." + day + " 현재 코로나 위기 경보 ");
         getDateTime.setText(year + "." + month + "." + day + " 00:00 기준");
-//이건 하고 있는 중
+
+
+        //Option 버튼
+        Button OptionButton=(Button)findViewById(R.id.Option_Button);
+        OptionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent Ointent=new Intent(getApplicationContext(), Option.class);
+                startActivity(Ointent);
+            }
+        });
+
+
+
+
+
         TextView DECIDE_cnt= (TextView) findViewById(R.id.DECIDE_CNT);
         TextView DEATH_cnt= (TextView) findViewById(R.id.DEATH_CNT);
         TextView EXAM_cnt= (TextView) findViewById(R.id.EXAM_CNT);
         TextView CLEAR_cnt= (TextView) findViewById(R.id.CLEAR_CNT);
         TextView ACC_EXAM_cnt= (TextView) findViewById(R.id.ACC_EXAM_CNT);
-        ArrayList<String> DEATH_Count=new ArrayList<String>();
+        //파싱된 결과확인!
+        ArrayList<String>DEATH_Count=new ArrayList<String>();
         boolean initem = false, STATE_DT1 = false, STATE_TIME1 = false, DECIDE_CNT1 = false, CLEAR_CNT1 = false, EXAM_CNT1 = false;
         boolean DEATH_CNT1 = false, CARE_CNT1 = false, RESUTL_NEG_CNT1 = false, ACC_EXAM_CNT1 = false, ACC_EXAM_COMP_CNT1 = false;
 
@@ -219,12 +209,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             EXAM_cnt.setText(EXAM_cnt.getText()+EXAM_CNT+"명");
                             ACC_EXAM_cnt.setText(ACC_EXAM_cnt.getText()+ACC_EXAM_CNT+"건");
 
-
-
-
-
-
-
                         }
                         initem = false;
                         break;
@@ -236,6 +220,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } catch (Exception e) {
 
         }
+
+
         mToolbar = (Toolbar) findViewById(R.id.mToolBar);
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -259,19 +245,19 @@ public boolean onNavigationItemSelected(MenuItem item){
 
         switch (id){
             case R.id.navigation_item_home:
-                Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+                Intent intent=new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 break;
             case R.id.navigation_item_news:
-                intent=new Intent(getApplicationContext(), NewsActivity.class);
+                intent=new Intent(getApplicationContext(), Join.class);
                 startActivity(intent);
                 break;
             case R.id.navigation_item_timeline:
-                intent=new Intent(getApplicationContext(),SubActivity.class);
+                intent=new Intent(getApplicationContext(), SubActivity.class);
                 startActivity(intent);
                 break;
             case R.id.navigation_item_nfc:
-                intent=new Intent(getApplicationContext(),Register.class);
+                intent=new Intent(getApplicationContext(),Option.class);
                 startActivity(intent);
                 break;
             default:
@@ -290,73 +276,9 @@ public boolean onNavigationItemSelected(MenuItem item){
                 return true;
         }
                 return super.onOptionsItemSelected(item); }
-    // 퍼미션 체크 part
-    @Override
-    public void onRequestPermissionsResult(int permsRequestCode,
-                                           @NonNull String[] permissions,
-                                           @NonNull int[] grandResults) {
 
-        if (permsRequestCode == PERMISSIONS_REQUEST_CODE && grandResults.length == REQUIRED_PERMISSIONS.length) {
-            // 요청 코드가 PERMISSIONS_REQUEST_CODE 이고, 요청한 퍼미션 개수만큼 수신되었다면
-            System.out.println("testtestest"+grandResults.length);
-            boolean check_result = true;
-            // 모든 퍼미션을 허용했는지 체크합니다.
-            for (int result : grandResults) {
-                System.out.println(result);
-                if (result != PackageManager.PERMISSION_GRANTED) {
-                    check_result = false;
-                    break;
-                }
-            }
-            if (check_result) {
-                //위치 값을 가져올 수 있음
-            } else {
-                // 거부한 퍼미션이 있다면 앱을 사용할 수 없는 이유를 설명해주고 앱을 종료합니다.2 가지 경우가 있습니다.
-                if (ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[0])
-                        || ActivityCompat.shouldShowRequestPermissionRationale(this, REQUIRED_PERMISSIONS[1])) {
-                    Toast.makeText(MainActivity.this, "퍼미션이 거부되었습니다. 앱을 다시 실행하여 퍼미션을 허용해주세요.", Toast.LENGTH_LONG).show();
-                    finish();
-                } else {
-                    Toast.makeText(MainActivity.this, "퍼미션이 거부되었습니다. 설정(앱 정보)에서 퍼미션을 허용해야 합니다. ", Toast.LENGTH_LONG).show();
-                }
-            }
+
 
         }
-    }
-    public boolean checkLocationServicesStatus() {
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-                || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-    }
-
-    void checkRunTimePermission() {
-        System.out.println("checkRunTimePermission");
-        int hasFineLocationPermission = ContextCompat.checkSelfPermission(MainActivity.this,
-                Manifest.permission.ACCESS_FINE_LOCATION);
-        int hasBackgroundLocationPermission = ContextCompat.checkSelfPermission(MainActivity.this,
-                Manifest.permission.ACCESS_BACKGROUND_LOCATION);
-
-        if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
-        hasBackgroundLocationPermission == PackageManager.PERMISSION_GRANTED) { System.out.println("전부 권한을 가짐");
-        } else {
-            System.out.println("전부 권한을 가지지 못함");
-            if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, REQUIRED_PERMISSIONS[0])) {
-                Toast.makeText(MainActivity.this, "이 앱을 실행하려면 위치 접근 권한이 필요합니다.", Toast.LENGTH_LONG).show();
-                ActivityCompat.requestPermissions(MainActivity.this, REQUIRED_PERMISSIONS,
-                        PERMISSIONS_REQUEST_CODE);
-            } else{
-                ActivityCompat.requestPermissions(MainActivity.this, REQUIRED_PERMISSIONS,
-                        PERMISSIONS_REQUEST_CODE);
-            }
-
-        }
-    }
 
 
-    // -------------------
-
-
-
-
-}
