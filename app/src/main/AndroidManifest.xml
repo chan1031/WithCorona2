@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.cookandroid.myapplication">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -30,12 +31,11 @@
         <activity android:name=".login.LoginPage"/>
         <activity android:name=".News.NewsActivity"/>
         <activity android:name=".News.Detailed"/>
-        <activity android:name=".login.MainActivity"/>
-        <activity android:name=".login.Option"/>
-        <activity android:name=".login.PasswordChange"/>
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".Option"/>
+        <activity android:name=".PasswordChange"/>
         <activity android:name=".join.RegisterTerms"/>
         <activity android:name=".join.Register"/>
-        <activity android:name=".join.RegisterSuccess"/>
         <activity android:name=".Gps.SubActivity"
             android:launchMode="singleTask"/>
 

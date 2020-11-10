@@ -55,7 +55,7 @@ public class GpsService extends Service {
         return isInnerPoint;
     }
 
-   /* final double x1 = 126.680803;
+    final double x1 = 126.680803;
     final double x2 = 126.682557;
     final double x3 = 126.681092;
     final double x4 = 126.679418;
@@ -63,7 +63,7 @@ public class GpsService extends Service {
     final double y1 = 37.414736;
     final double y2 = 37.413644;
     final double y3 = 37.412501;
-    final double y4 = 37.413728;*/
+    final double y4 = 37.413728;
 
     /*final double x1 = 126.679897;
     final double x2 = 126.680854;
@@ -77,7 +77,7 @@ public class GpsService extends Service {
     final double y4 = 37.414233;
     final double y5 = 37.414744;
 */
-    final double x1 = 126.650587;
+   /* final double x1 = 126.650587;
     final double x2 = 126.650270;
     final double x3 = 126.650667;
     final double x4 = 126.650879;
@@ -85,7 +85,7 @@ public class GpsService extends Service {
     final double y1 = 37.475743;
     final double y2 = 37.475266;
     final double y3 = 37.475204;
-    final double y4 = 37.475517;
+    final double y4 = 37.475517;*/
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {

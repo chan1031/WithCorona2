@@ -1,4 +1,4 @@
-package com.cookandroid.myapplication.login;
+package com.cookandroid.myapplication;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
