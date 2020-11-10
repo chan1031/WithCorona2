@@ -38,16 +38,19 @@
         android:orientation="vertical">
 
         <EditText
+            android:id="@+id/login_id"
             android:layout_width="314dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:hint="아이디를 입력해주세요" />
 
         <EditText
+            android:id="@+id/login_pass"
             android:layout_width="315dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="비밀번호를 입력해주세요" />
+            android:hint="비밀번호를 입력해주세요"
+            android:inputType="textPassword" />
 
         <Button
             android:id="@+id/loginButton"
