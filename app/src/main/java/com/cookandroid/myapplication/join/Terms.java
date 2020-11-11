@@ -36,7 +36,7 @@ public class Terms extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(), Join.class);
+                Intent intent=new Intent(getApplicationContext(), Register.class);
                 startActivity(intent);
 
             }
