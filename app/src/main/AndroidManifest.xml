@@ -31,7 +31,7 @@
         <activity android:name=".login.LoginPage"/>
         <activity android:name=".News.NewsActivity"/>
         <activity android:name=".News.Detailed"/>
-        <activity android:name=".login.MainActivity"/>
+        <activity android:name=".MainActivity"/>
         <activity android:name=".Option"/>
         <activity android:name=".PasswordChange"/>
         <activity android:name=".join.RegisterTerms"/>
