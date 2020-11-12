@@ -64,7 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:background="#FAFAFA"
+                android:background="#fff"
                >
 
                 <LinearLayout
@@ -92,32 +92,20 @@
                         android:background="@drawable/nfc_why"
                         android:stateListAnimator="@null" />
                 </LinearLayout>
-                <FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <Button
-        android:id="@+id/NFC_Off"
-        android:layout_marginTop="20dp"
-        android:layout_width="369dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/nfc_off"
-        android:stateListAnimator="@null" >
-
-    </Button>
-
-    <Button
-        android:id="@+id/NFC_On"
-        android:layout_marginTop="20dp"
-        android:layout_width="369dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/nfc_on"
-        android:stateListAnimator="@null"  />
 
 
-</FrameLayout>
+
+
+                    <Button
+                        android:id="@+id/host_checkin"
+                        android:layout_width="369dp"
+                        android:layout_height="229dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/host_checkin"
+                        android:stateListAnimator="@null" />
+
+
             </LinearLayout>
         </LinearLayout>
     <com.google.android.material.navigation.NavigationView

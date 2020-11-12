@@ -276,7 +276,7 @@ public boolean onNavigationItemSelected(MenuItem item){
                 startActivity(intent);
                 break;
             case R.id.navigation_item_nfc:
-                intent=new Intent(getApplicationContext(),Option.class);
+                intent=new Intent(getApplicationContext(),NFC.class);
                 startActivity(intent);
                 break;
             default:
