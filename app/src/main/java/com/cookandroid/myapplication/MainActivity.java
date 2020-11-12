@@ -26,6 +26,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.cookandroid.myapplication.Giofencing.GpsService;
 import com.cookandroid.myapplication.Gps.SubActivity;
+import com.cookandroid.myapplication.NFC.NfcReceive;
 import com.cookandroid.myapplication.join.Register;
 import com.google.android.material.navigation.NavigationView;
 
@@ -276,7 +277,7 @@ public boolean onNavigationItemSelected(MenuItem item){
                 startActivity(intent);
                 break;
             case R.id.navigation_item_nfc:
-                intent=new Intent(getApplicationContext(),NFC.class);
+                intent=new Intent(getApplicationContext(), NfcReceive.class);
                 startActivity(intent);
                 break;
             default:

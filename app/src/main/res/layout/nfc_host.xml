@@ -96,13 +96,13 @@
 
 
 
-                    <Button
+                    <ImageView
                         android:id="@+id/host_checkin"
                         android:layout_width="369dp"
                         android:layout_height="229dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="20dp"
-                        android:background="@drawable/host_checkin"
+                        android:src="@drawable/host_checkin"
                         android:stateListAnimator="@null" />
 
 
