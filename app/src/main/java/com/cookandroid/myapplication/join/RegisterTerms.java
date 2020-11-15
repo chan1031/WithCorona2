@@ -37,7 +37,7 @@ public class RegisterTerms extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(), Register.class);
+                Intent intent=new Intent(getApplicationContext(), RegisterSelect.class);
                 startActivity(intent);
 
             }

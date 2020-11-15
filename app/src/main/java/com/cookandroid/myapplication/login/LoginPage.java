@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +28,8 @@ public class LoginPage extends AppCompatActivity {
     private EditText login_id;
     private EditText login_pass;
     private int validateFlag = 0;
+    CheckBox isBossCheckBox;
+    boolean isBoss;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,18 @@ public class LoginPage extends AppCompatActivity {
         login_id = findViewById(R.id.login_id);
         login_pass = findViewById(R.id.login_pass);
         loginbtn = (Button)findViewById(R.id.loginButton);
+        isBossCheckBox = (CheckBox)findViewById(R.id.isBoss);
+
+        isBossCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    isBoss = true;
+                }else{
+                    isBoss = false;
+                }
+            }
+        });
 
         //StringRequest에 넣을 responseListner를 선언한다.
         final Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -53,11 +69,19 @@ public class LoginPage extends AppCompatActivity {
                         System.out.println("로그인한 아이디:"+userID);
 
                         //로그인 성공 Toast
-                        Toast.makeText(getApplicationContext(),"로그인에 성공", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginPage.this, MainActivity.class);
-                        intent.putExtra("userID",userID);
-                        //DTO에 userID의 값을 저장
-                        startActivity(intent);
+                        if(isBoss){
+                            Toast.makeText(getApplicationContext(),userID+"사장님 로그인 성공", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(LoginPage.this, MainActivity.class);
+                            intent.putExtra("userID",userID);
+                            intent.putExtra("isBoss",isBoss);
+                            startActivity(intent);
+                        }else {
+                            Toast.makeText(getApplicationContext(), "로그인에 성공", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(LoginPage.this, MainActivity.class);
+                            intent.putExtra("userID", userID);
+                            intent.putExtra("isBoss",isBoss);
+                            startActivity(intent);
+                        }
                     }else{ // 회원가입에 실패
                         Toast.makeText(getApplicationContext(),"아이디와 비밀번호가 틀립니다.", Toast.LENGTH_SHORT).show();
                         return;
@@ -76,7 +100,7 @@ public class LoginPage extends AppCompatActivity {
             public void onClick(View view) {
                 String userID = login_id.getText().toString();
                 String userPass = login_pass.getText().toString();
-                SharedPreferences sharedPreferences= getSharedPreferences("user", MODE_PRIVATE);    // test 이름의 기본모드 설정
+                SharedPreferences sharedPreferences= getSharedPreferences("store", MODE_PRIVATE);    // test 이름의 기본모드 설정
                 SharedPreferences.Editor editor= sharedPreferences.edit(); //sharedPreferences를 제어할 editor를 선언
                 editor.putString("id",userID); // key,value 형식으로 저장
                 editor.putString("ps",userPass); // key,value 형식으로 저장
@@ -84,11 +108,19 @@ public class LoginPage extends AppCompatActivity {
                 //유효성 검사
                 validateCheck(userID,userPass);
                 if(validateFlag == 1){
-                    LoginRequest loginRequset = new LoginRequest(userID,userPass,responseListener);
                     //RequestQueue를 선언한다.
-                    RequestQueue queue = Volley.newRequestQueue(LoginPage.this);
-                    //서버에 값을 요청한다.
-                    queue.add(loginRequset);
+                    if(isBoss){
+                        System.out.println("사장으로 로그인 시도");
+                        BossLoginRequest bossLoginRequest = new BossLoginRequest(userID,userPass,responseListener);
+                        RequestQueue queue = Volley.newRequestQueue(LoginPage.this);
+                        //서버에 값을 요청한다.
+                        queue.add(bossLoginRequest);
+                    }else{
+                        LoginRequest loginRequset = new LoginRequest(userID,userPass,responseListener);
+                        RequestQueue queue = Volley.newRequestQueue(LoginPage.this);
+                        //서버에 값을 요청한다.
+                        queue.add(loginRequset);
+                    }
                 }
             }
         });

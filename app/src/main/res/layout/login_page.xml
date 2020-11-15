@@ -52,6 +52,12 @@
             android:hint="비밀번호를 입력해주세요"
             android:inputType="textPassword" />
 
+        <CheckBox
+            android:id="@+id/isBoss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="사장님으로 로그인" />
+
         <Button
             android:id="@+id/loginButton"
             android:layout_width="311dp"

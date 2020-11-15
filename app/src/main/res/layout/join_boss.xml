@@ -135,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
-                    android:text="이름" />
+                    android:text="가게 이름" />
 
                 <EditText
                     android:id="@+id/et_storeName"
@@ -153,7 +153,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
-                    android:text="전화번호 설정" />
+                    android:text="사업자 번호" />
 
 
                 <EditText
@@ -164,7 +164,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/border"
                     android:gravity="left|center"
-                    android:hint="전화번호를 입력해주새요" />
+                    android:hint="번호를 입력해주세요" />
 
             </LinearLayout>
 

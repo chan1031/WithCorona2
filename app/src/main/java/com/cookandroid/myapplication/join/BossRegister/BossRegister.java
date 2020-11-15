@@ -1,4 +1,4 @@
-package com.cookandroid.myapplication.join;
+package com.cookandroid.myapplication.join.BossRegister;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,16 +13,19 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.cookandroid.myapplication.R;
+import com.cookandroid.myapplication.join.IdCheck;
+import com.cookandroid.myapplication.join.RegisterRequest;
+import com.cookandroid.myapplication.join.RegisterSuccess;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Register extends AppCompatActivity {
+public class BossRegister extends AppCompatActivity {
 
     private EditText et_id;
     private EditText et_pass;
-    private EditText et_name;
-    private EditText et_tel;
+    private EditText et_storeName;
+    private EditText et_bsNumber;
     private EditText et_passCheck;
 
     private static int idFlag = 0;
@@ -33,14 +36,14 @@ public class Register extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.join_join);
+        setContentView(R.layout.join_boss);
 
         //id 매칭
         et_id = findViewById(R.id.et_id);
         et_pass = findViewById(R.id.et_pass);
         et_passCheck = findViewById(R.id.et_passCheck);
-        et_name = findViewById(R.id.et_storeName);
-        et_tel = findViewById(R.id.et_bsNumber);
+        et_storeName = findViewById(R.id.et_storeName);
+        et_bsNumber = findViewById(R.id.et_bsNumber);
 
         idCheck = findViewById(R.id.IdCheck);
 
@@ -49,17 +52,17 @@ public class Register extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userID = et_id.getText().toString();
-                String userPass = et_pass.getText().toString();
-                String userPassCheck = et_passCheck.getText().toString();
-                String userTel = et_tel.getText().toString();
-                String userName = et_name.getText().toString();
+                String storeID = et_id.getText().toString();
+                String storePass = et_pass.getText().toString();
+                String storePassCheck = et_passCheck.getText().toString();
+                String bsNumber = et_bsNumber.getText().toString();
+                String storeName = et_storeName.getText().toString();
 
                 //유효성 검사 메서드
-                validateCheck(userID,userPass,userPassCheck,userTel,userName);
+                validateCheck(storeID,storePass,storePassCheck,bsNumber,storeName);
 
                 //비밀번호 재입력과 아이디 중복체크 여부 확인
-                if(userPass.equals(userPassCheck) && idFlag == 1 && validateInt == 1){
+                if(storePass.equals(storePassCheck) && idFlag == 1 && validateInt == 1){
                     Response.Listener<String> responseListener = new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -70,7 +73,7 @@ public class Register extends AppCompatActivity {
                                 if (success){
                                     // 회원가입에 성공
                                     Toast.makeText(getApplicationContext(),"회원가입에 성공", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(Register.this, RegisterSuccess.class);
+                                    Intent intent = new Intent(BossRegister.this, RegisterSuccess.class);
                                     startActivity(intent);
                                 }else{ // 회원가입에 실패
                                     Toast.makeText(getApplicationContext(),"회원가입에 실패", Toast.LENGTH_SHORT).show();
@@ -81,8 +84,8 @@ public class Register extends AppCompatActivity {
                             }
                         }
                     };
-                    RegisterRequest registerRequest = new RegisterRequest(userID,userPass,userName,userTel, responseListener);
-                    RequestQueue queue = Volley.newRequestQueue(Register.this);
+                    BossRegisterRequest registerRequest = new BossRegisterRequest(storeID,storePass,storeName,bsNumber, responseListener);
+                    RequestQueue queue = Volley.newRequestQueue(BossRegister.this);
                     queue.add(registerRequest);
                 }else{
                     if(idFlag==1){
@@ -123,15 +126,15 @@ public class Register extends AppCompatActivity {
                         }
                     };
                     IdCheck idCheckRequest = new IdCheck(userID, responseListener);
-                    RequestQueue queue = Volley.newRequestQueue(Register.this);
+                    RequestQueue queue = Volley.newRequestQueue(BossRegister.this);
                     queue.add(idCheckRequest);
                 }
 
         });
     }
 
-    public void validateCheck(String store,String userPass,String userPassCheck,String userTel,String userName){
-        if(store.equals("")) {
+    public void validateCheck(String userId,String userPass,String userPassCheck,String userTel,String userName){
+        if(userId.equals("")) {
             Toast.makeText(getApplicationContext(),"아이디를 입력하세요", Toast.LENGTH_SHORT).show();
             et_id.requestFocus();
         }else if(userPass.equals("")){
@@ -142,10 +145,10 @@ public class Register extends AppCompatActivity {
             et_passCheck.requestFocus();
         }else if(userName.equals("")){
             Toast.makeText(getApplicationContext(),"이름 입력하세요", Toast.LENGTH_SHORT).show();
-            et_name.requestFocus();
+            et_storeName.requestFocus();
         }else if(userTel.equals("")){
             Toast.makeText(getApplicationContext(),"전화번호를 입력하세요", Toast.LENGTH_SHORT).show();
-            et_tel.requestFocus();
+            et_bsNumber.requestFocus();
         }
         else{
             validateInt = 1;

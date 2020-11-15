@@ -47,16 +47,16 @@ public class Option extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
+                SharedPreferences sp = getSharedPreferences("store", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sp.edit();
                 editor.clear();
                 editor.commit();
 
                 Toast.makeText(getApplicationContext() ,"로그아웃 하셨습니다.", Toast.LENGTH_SHORT).show();
-                Intent intent2 = new Intent(getApplicationContext(), GpsService.class);
+                Intent intent2 = new Intent(Option.this, GpsService.class);
                 stopService(intent2);
-                Intent intent = new Intent(getApplicationContext(), LoginPage.class);
-                startActivity(intent);
+                Intent intent3 = new Intent(Option.this,LoginPage.class);
+                startActivity(intent3);
             }
         });
     }

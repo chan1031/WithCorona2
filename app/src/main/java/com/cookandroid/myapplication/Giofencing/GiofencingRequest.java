@@ -13,12 +13,12 @@ public class GiofencingRequest extends StringRequest {
     final static private String URL = "http://49.172.168.109:1228/Giofencing.php";
     private Map map;
 
-    public GiofencingRequest(String userID, String isIn, Response.Listener<String> listener){
+    public GiofencingRequest(String userID,String time, Response.Listener<String> listener){
         super(Method.POST, URL, listener, null);
 
         map = new HashMap<>();
         map.put("userID",userID);
-        map.put("isIn",isIn);
+        map.put("time",time);
     }
 
     @Override

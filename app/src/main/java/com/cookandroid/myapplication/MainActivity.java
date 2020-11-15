@@ -27,6 +27,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.cookandroid.myapplication.Giofencing.GpsService;
 import com.cookandroid.myapplication.Gps.SubActivity;
 import com.cookandroid.myapplication.NFC.NfcReceive;
+import com.cookandroid.myapplication.NFC.NfcSend;
 import com.cookandroid.myapplication.join.Register;
 import com.google.android.material.navigation.NavigationView;
 
@@ -65,6 +66,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     String month = monthFormat.format(currentTime);
     String day = dayFormat.format(currentTime);
 
+    Boolean isBoss;
+    String userID;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +78,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             checkRunTimePermission();
         }
 
-        String userID = getIntent().getStringExtra("userID");
+        userID = getIntent().getStringExtra("userID");
+        isBoss = getIntent().getBooleanExtra("isBoss",false);
 
         Intent GpsServiceIntent = new Intent(this, GpsService.class);
         GpsServiceIntent.putExtra("userID",userID);
@@ -90,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getDate.setText(year + "." + month + "." + day + " 현재 코로나 위기 경보 ");
         getDateTime.setText(year + "." + month + "." + day + " 00:00 기준");
 
-
         //Option 버튼
         Button OptionButton=(Button)findViewById(R.id.Option_Button);
         OptionButton.setOnClickListener(new View.OnClickListener() {
@@ -100,10 +103,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(Ointent);
             }
         });
-
-
-
-
 
         TextView DECIDE_cnt= (TextView) findViewById(R.id.DECIDE_CNT);
         TextView DEATH_cnt= (TextView) findViewById(R.id.DEATH_CNT);
@@ -277,8 +276,13 @@ public boolean onNavigationItemSelected(MenuItem item){
                 startActivity(intent);
                 break;
             case R.id.navigation_item_nfc:
-                intent=new Intent(getApplicationContext(), NfcReceive.class);
-                startActivity(intent);
+                if(isBoss){
+                    intent=new Intent(getApplicationContext(), NfcReceive.class);
+                    startActivity(intent);
+                }else{
+                    intent=new Intent(getApplicationContext(), NfcSend.class);
+                    startActivity(intent);
+                }
                 break;
             default:
                 break;
@@ -370,8 +374,6 @@ public boolean onNavigationItemSelected(MenuItem item){
         }
     }
     // -------------------
-
-
 
 }
 

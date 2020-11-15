@@ -17,14 +17,16 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class GpsService extends Service {
 
     private ArrayList<PointD> mPointList = new ArrayList<PointD>();
-    private String userId;
-    private boolean firstIn = false;
-    private String isIn;
+    private String store;
+    private boolean firstIn = true;
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public void addPoint (double x, double y) {
         mPointList.add(new PointD(x,y));
@@ -117,16 +119,16 @@ public class GpsService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-         userId = intent.getStringExtra("userID");
+         store = intent.getStringExtra("userID");
         final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         try {
                 lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                        10000,
-                        1,
+                        30000,
+                        10,
                         mLocationListener);
                 lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-                        10000,
-                        1,
+                        30000,
+                        10,
                         mLocationListener);
         } catch (SecurityException ex) {
         }
@@ -145,43 +147,25 @@ public class GpsService extends Service {
             double longitude = location.getLongitude();
             double latitude = location.getLatitude();
 
-            /*double altitude = location.getAltitude();
-            float accuracy = location.getAccuracy();
-
-            System.out.println( "위도 : " + longitude + "\n경도 : " + latitude
-                    + "\n고도 : " + altitude + "\n정확도 : " + accuracy);*/
-
             if(isPointInPolygon(longitude,latitude)){
-                isIn = "1";
                 Toast myToast = Toast.makeText(getApplicationContext() ,"In", Toast.LENGTH_SHORT);
                 myToast.show();
                 //출입기록
-                if(firstIn == false){
-                    Response.Listener<String> responseListener = new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                        }
-                    };
-                    GiofencingRequest GiofencingRequest = new GiofencingRequest(userId,isIn, responseListener);
-                    RequestQueue queue = Volley.newRequestQueue(GpsService.this);
-                    queue.add(GiofencingRequest);
-                    System.out.println("전송"+userId+isIn);
-                    firstIn = true;
-                }
-            }else{
-                // 출타기록
                 if(firstIn){
-                    isIn= "0";
                     Response.Listener<String> responseListener = new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                         }
                     };
-                    GiofencingRequest GiofencingRequest = new GiofencingRequest(userId,isIn, responseListener);
+                    Date time = new Date();
+                    String time1 = format.format(time);
+                    System.out.println(time1);
+                    GiofencingRequest GiofencingRequest = new GiofencingRequest(store,time1, responseListener);
                     RequestQueue queue = Volley.newRequestQueue(GpsService.this);
                     queue.add(GiofencingRequest);
                     firstIn = false;
                 }
+            }else{
                 Toast myToast = Toast.makeText(getApplicationContext(),"out", Toast.LENGTH_SHORT);
                 myToast.show();
             }

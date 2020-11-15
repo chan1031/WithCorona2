@@ -37,7 +37,7 @@ public class Loding extends AppCompatActivity {
             @Override
             public void run() {
                 /* 1.선언 */
-                SharedPreferences sharedPreferences= getSharedPreferences("user", MODE_PRIVATE);
+                SharedPreferences sharedPreferences= getSharedPreferences("store", MODE_PRIVATE);
                 String id = sharedPreferences.getString("id","");
                 String ps = sharedPreferences.getString("ps","");
                 //StringRequest에 넣을 responseListner를 선언한다.

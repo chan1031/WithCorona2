@@ -36,11 +36,15 @@
         <activity android:name=".News.NewsActivity"/>
         <activity android:name=".News.Detailed"/>
         <activity android:name=".MainActivity"/>
+        <activity android:name=".NFC.NfcReceive"/>
+        <activity android:name=".NFC.NfcSend"/>
         <activity android:name=".Option"/>
         <activity android:name=".PasswordChange"/>
         <activity android:name=".join.RegisterTerms"/>
         <activity android:name=".join.Register"/>
         <activity android:name=".join.RegisterSuccess"/>
+        <activity android:name=".join.RegisterSelect"/>
+        <activity android:name=".join.BossRegister.BossRegister"/>
         <activity android:name=".Gps.SubActivity"
             android:launchMode="singleTask"/>
 
