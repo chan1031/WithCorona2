@@ -109,22 +109,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         TextView EXAM_cnt= (TextView) findViewById(R.id.EXAM_CNT);
         TextView CLEAR_cnt= (TextView) findViewById(R.id.CLEAR_CNT);
         TextView ACC_EXAM_cnt= (TextView) findViewById(R.id.ACC_EXAM_CNT);
+        TextView ACC_EXAM_COMP_cnt = (TextView) findViewById(R.id.ACC_EXAM_COMP_CNT);
+        TextView ACC_DEF_rate = (TextView) findViewById(R.id.ACC_DEF_RATE);
+
         //파싱된 결과확인!
         ArrayList<String>DEATH_Count=new ArrayList<String>();
         boolean initem = false, STATE_DT1 = false, STATE_TIME1 = false, DECIDE_CNT1 = false, CLEAR_CNT1 = false, EXAM_CNT1 = false;
-        boolean DEATH_CNT1 = false, CARE_CNT1 = false, RESUTL_NEG_CNT1 = false, ACC_EXAM_CNT1 = false, ACC_EXAM_COMP_CNT1 = false;
+        boolean DEATH_CNT1 = false, CARE_CNT1 = false, RESUTL_NEG_CNT1 = false, ACC_EXAM_CNT1 = false, ACC_EXAM_COMP_CNT1 = false, ACC_DEF_RATE1 = false;
 
         String STATE_DT = null, STATE_TIME = null, DECIDE_CNT = null, CLEAR_CNT = null, EXAM_CNT = null, DEATH_CNT = null, CARE_CNT = null, RESUTL_NEG_CNT = null;
-        String ACC_EXAM_CNT = null, ACC_EXAM_COMP_CNT = null;
+        String ACC_EXAM_CNT = null, ACC_EXAM_COMP_CNT = null, ACC_DEF_RATE = null;;
 
         Date date_now = new Date(System.currentTimeMillis());
         java.text.SimpleDateFormat nowDate = new java.text.SimpleDateFormat("yyyyMMdd");
         StrictMode.enableDefaults();
         try {
-            String urlstr = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson?serviceKey=%2F3rq7E7ZGEQNvXiyQaKe6e2CAeuptfcprA0W4pB0mA9hQxN8f1g6jesOAnh9h%2F%2FttPD0glBdwD8QwA4TPzW3IQ%3D%3D&pageNo=1&numOfRows=10&startCreateDt=&endCreateDt=&endCreateDt=";
-             //검색 URL부분
-
-            URL url=new URL(urlstr);
+            URL url = new URL("http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson?serviceKey=%2F3rq7E7ZGEQNvXiyQaKe6e2CAeuptfcprA0W4pB0mA9hQxN8f1g6jesOAnh9h%2F%2FttPD0glBdwD8QwA4TPzW3IQ%3D%3D&pageNo=1&numOfRows=10&startCreateDt="+nowDate.format(date_now)+"&endCreateDt="+nowDate.format(date_now)
+            ); //검색 URL부분
 
             URLConnection connection=url.openConnection();
             connection.setDoOutput(true);
@@ -170,6 +171,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         }
                         if (parser.getName().equals("accExamCompCnt")) {
                             ACC_EXAM_COMP_CNT1 = true;
+                        }
+                        if (parser.getName().equals("accDefRate")) {
+                            ACC_DEF_RATE1 = true;
                         }
 
                         break;
@@ -218,15 +222,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             ACC_EXAM_COMP_CNT = parser.getText();
                             ACC_EXAM_COMP_CNT1 = false;
                         }
+                        if (ACC_DEF_RATE1) {
+                            ACC_DEF_RATE = parser.getText();
+                            ACC_DEF_RATE1 = false;
+                        }
                         break;
                     case XmlPullParser.END_TAG:
                         if (parser.getName().equals("item")) {
 
-                            DECIDE_cnt.setText(DECIDE_cnt.getText()+DECIDE_CNT + " 명");
-                            DEATH_cnt.setText(DEATH_cnt.getText()+DEATH_CNT+"명");
-                            CLEAR_cnt.setText(DEATH_cnt.getText()+CLEAR_CNT+"명");
-                            EXAM_cnt.setText(EXAM_cnt.getText()+EXAM_CNT+"명");
-                            ACC_EXAM_cnt.setText(ACC_EXAM_cnt.getText()+ACC_EXAM_CNT+"건");
+                            DECIDE_cnt.setText(DECIDE_CNT + " 명");
+                            DEATH_cnt.setText(DEATH_CNT+"명");
+                            CLEAR_cnt.setText(CLEAR_CNT+"명");
+                            EXAM_cnt.setText(EXAM_CNT+"명");
+                            ACC_EXAM_cnt.setText(ACC_EXAM_CNT+"건");
+                            ACC_EXAM_COMP_cnt.setText(ACC_EXAM_COMP_CNT+"건");
+                            ACC_DEF_rate.setText(ACC_DEF_RATE+ "%");
 
                         }
                         initem = false;
