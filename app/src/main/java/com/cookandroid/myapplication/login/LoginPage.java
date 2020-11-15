@@ -19,6 +19,7 @@ import com.android.volley.toolbox.Volley;
 import com.cookandroid.myapplication.MainActivity;
 import com.cookandroid.myapplication.R;
 import com.cookandroid.myapplication.join.RegisterTerms;
+import com.cookandroid.myapplication.login.bossLogin.BossLoginRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;

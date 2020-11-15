@@ -125,7 +125,7 @@ public class BossRegister extends AppCompatActivity {
                             }
                         }
                     };
-                    IdCheck idCheckRequest = new IdCheck(userID, responseListener);
+                    BossIdCheck idCheckRequest = new BossIdCheck(userID, responseListener);
                     RequestQueue queue = Volley.newRequestQueue(BossRegister.this);
                     queue.add(idCheckRequest);
                 }
