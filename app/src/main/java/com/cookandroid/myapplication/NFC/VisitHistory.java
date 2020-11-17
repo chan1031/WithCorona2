@@ -59,7 +59,6 @@ public class VisitHistory extends AppCompatActivity {
         SimpleDateFormat nowDate = new SimpleDateFormat("yyyy년MM월dd일 HH시mm분");
         String time = nowDate.format(date_now);
         Parcelable[] data = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-        String time = nowDate.format(date_now);
 
         userID = getIntent().getStringExtra("userID");
         System.out.println("보내려는 아이디는"+userID);
@@ -82,15 +81,7 @@ public class VisitHistory extends AppCompatActivity {
             } catch (Exception e) {
                 Log.e("TagDispatch", e.toString());
             }
-<<<<<<< Updated upstream
-        } //nowDate.format(date_now)
-        text.setText(time+" 방문 기록이 확인 되었습니다. \n" + phoneNumber);
-        Dbconnect(phoneNumber,time);
-    }
 
-    protected void Dbconnect(String tel, String time){
-
-=======
         }
         text.setText(nowDate.format(date_now)+"방문 기록이 확인 되었습니다. \n" + phoneNumber);
 
@@ -102,6 +93,5 @@ public class VisitHistory extends AppCompatActivity {
         NfcRequest nfcRequest = new NfcRequest(userID,time, responseListener);
         RequestQueue queue = Volley.newRequestQueue(VisitHistory.this);
         queue.add(nfcRequest);
->>>>>>> Stashed changes
     }
 }
