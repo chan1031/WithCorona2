@@ -26,7 +26,6 @@ public class NfcSend extends AppCompatActivity {
 
         mNdeMessage= new NdefMessage(
                 new NdefRecord[]{
-                        createNewTextRecord(getDeviceId(), Locale.ENGLISH, true),
                         createNewTextRecord(getPhoneNumber(), Locale.ENGLISH, true)
                 }
         );
@@ -70,11 +69,5 @@ public class NfcSend extends AppCompatActivity {
             phoneNumber = phoneNumber.replace("+82", "0"); // +8210xxxxyyyy 로 시작되는 번호
         }
         return phoneNumber;
-    }
-    @SuppressLint("MissingPermission")
-    public String getDeviceId() {
-        TelephonyManager telephony = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-        String deviceId = telephony.getDeviceId();
-        return deviceId;
     }
 }
