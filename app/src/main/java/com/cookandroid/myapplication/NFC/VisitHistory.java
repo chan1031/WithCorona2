@@ -32,6 +32,7 @@ public class VisitHistory extends AppCompatActivity {
         if(passedIntent != null)
         {
             onNewIntent(passedIntent);
+
         }
         timer.postDelayed(new Runnable() {
             @Override
@@ -49,6 +50,7 @@ public class VisitHistory extends AppCompatActivity {
         String phoneNumber = ""; // 핸드폰 번호 받을 변수
         Date date_now = new Date(System.currentTimeMillis());
         SimpleDateFormat nowDate = new SimpleDateFormat("yyyy년MM월dd일 HH시mm분");
+        String time = nowDate.format(date_now);
         Parcelable[] data = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
 
         if (data != null) {
@@ -70,7 +72,12 @@ public class VisitHistory extends AppCompatActivity {
             } catch (Exception e) {
                 Log.e("TagDispatch", e.toString());
             }
-        }
-        text.setText(nowDate.format(date_now)+"방문 기록이 확인 되었습니다. \n" + phoneNumber);
+        } //nowDate.format(date_now)
+        text.setText(time+" 방문 기록이 확인 되었습니다. \n" + phoneNumber);
+        Dbconnect(phoneNumber,time);
+    }
+
+    protected void Dbconnect(String tel, String time){
+
     }
 }
