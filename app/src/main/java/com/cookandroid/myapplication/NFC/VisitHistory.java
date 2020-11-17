@@ -12,6 +12,11 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+import com.cookandroid.myapplication.Giofencing.GiofencingRequest;
+import com.cookandroid.myapplication.Giofencing.GpsService;
 import com.cookandroid.myapplication.R;
 
 import java.text.SimpleDateFormat;
@@ -21,6 +26,8 @@ import java.util.Date;
 public class VisitHistory extends AppCompatActivity {
     TextView text;
     int j;
+    String userID;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +59,10 @@ public class VisitHistory extends AppCompatActivity {
         SimpleDateFormat nowDate = new SimpleDateFormat("yyyy년MM월dd일 HH시mm분");
         String time = nowDate.format(date_now);
         Parcelable[] data = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+        String time = nowDate.format(date_now);
 
+        userID = getIntent().getStringExtra("userID");
+        System.out.println("보내려는 아이디는"+userID);
         if (data != null) {
             try {
                 for (int i = 0; i < data.length; i++) {
@@ -72,6 +82,7 @@ public class VisitHistory extends AppCompatActivity {
             } catch (Exception e) {
                 Log.e("TagDispatch", e.toString());
             }
+<<<<<<< Updated upstream
         } //nowDate.format(date_now)
         text.setText(time+" 방문 기록이 확인 되었습니다. \n" + phoneNumber);
         Dbconnect(phoneNumber,time);
@@ -79,5 +90,18 @@ public class VisitHistory extends AppCompatActivity {
 
     protected void Dbconnect(String tel, String time){
 
+=======
+        }
+        text.setText(nowDate.format(date_now)+"방문 기록이 확인 되었습니다. \n" + phoneNumber);
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+            }
+        };
+        NfcRequest nfcRequest = new NfcRequest(userID,time, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(VisitHistory.this);
+        queue.add(nfcRequest);
+>>>>>>> Stashed changes
     }
 }

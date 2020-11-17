@@ -29,6 +29,7 @@ import com.cookandroid.myapplication.Gps.SubActivity;
 import com.cookandroid.myapplication.NFC.NfcReceive;
 import com.cookandroid.myapplication.NFC.NfcSend;
 import com.cookandroid.myapplication.join.Register;
+import com.cookandroid.myapplication.login.LoginPage;
 import com.google.android.material.navigation.NavigationView;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -288,6 +289,7 @@ public boolean onNavigationItemSelected(MenuItem item){
             case R.id.navigation_item_nfc:
                 if(isBoss){
                     intent=new Intent(getApplicationContext(), NfcReceive.class);
+                    intent.putExtra("userID",userID);
                     startActivity(intent);
                 }else{
                     intent=new Intent(getApplicationContext(), NfcSend.class);

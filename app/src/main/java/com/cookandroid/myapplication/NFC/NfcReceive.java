@@ -17,14 +17,18 @@ public class NfcReceive extends AppCompatActivity {
     private PendingIntent pendingIntent;
     private IntentFilter[] mIntentFilters;
     private String[][] mNFCTechLists;
+    private String userID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nfc_host);
 
+        userID = getIntent().getStringExtra("userID");
+
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
         Intent intent = new Intent(this, VisitHistory.class);
+        intent.putExtra("userID",userID);
 
         pendingIntent = PendingIntent.getActivity(this,0,intent,0);
 
