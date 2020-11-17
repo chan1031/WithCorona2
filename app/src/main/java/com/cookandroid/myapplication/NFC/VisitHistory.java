@@ -61,7 +61,6 @@ public class VisitHistory extends AppCompatActivity {
         Parcelable[] data = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
 
         userID = getIntent().getStringExtra("userID");
-        System.out.println("보내려는 아이디는"+userID);
         if (data != null) {
             try {
                 for (int i = 0; i < data.length; i++) {
@@ -90,7 +89,9 @@ public class VisitHistory extends AppCompatActivity {
             public void onResponse(String response) {
             }
         };
-        NfcRequest nfcRequest = new NfcRequest(userID,time, responseListener);
+        System.out.println("보내려는 아이디는"+userID);
+        System.out.println("현재시간은"+time);
+        NfcRequest nfcRequest = new NfcRequest(userID,time, phoneNumber,responseListener);
         RequestQueue queue = Volley.newRequestQueue(VisitHistory.this);
         queue.add(nfcRequest);
     }

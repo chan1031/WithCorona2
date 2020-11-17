@@ -13,12 +13,13 @@ public class NfcRequest extends StringRequest {
     final static private String URL = "http://49.172.168.109:1228/Giofencing.php";
     private Map map;
 
-    public NfcRequest(String userID, String time, Response.Listener<String> listener){
+    public NfcRequest(String userID, String time, String phoneNumber, Response.Listener<String> listener){
         super(Method.POST, URL, listener, null);
 
         map = new HashMap<>();
-        map.put("bs_id",userID);
+        map.put("boss_id",userID);
         map.put("time",time);
+        map.put("phoneNumber",phoneNumber);
     }
 
     @Override
