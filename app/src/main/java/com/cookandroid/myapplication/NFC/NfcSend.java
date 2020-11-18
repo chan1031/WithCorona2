@@ -23,7 +23,7 @@ public class NfcSend extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nfc_customer);
-
+        nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         mNdeMessage= new NdefMessage(
                 new NdefRecord[]{
                         createNewTextRecord(getPhoneNumber(), Locale.ENGLISH, true)
