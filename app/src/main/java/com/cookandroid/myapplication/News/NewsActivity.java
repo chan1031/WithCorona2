@@ -1,8 +1,11 @@
 package com.cookandroid.myapplication.News;
 
+import android.icu.util.Calendar;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,6 +33,7 @@ public class NewsActivity extends AppCompatActivity {
     List<Articles> articles = new ArrayList<>();
     Date date_now = new Date(System.currentTimeMillis());
     SimpleDateFormat nowDate = new SimpleDateFormat("yyyy-MM-dd");
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,20 +42,24 @@ public class NewsActivity extends AppCompatActivity {
         swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         recyclerView = findViewById(R.id.recyclerView);
 
+        final Calendar c = Calendar.getInstance();
+        c.setTime(date_now);
+        c.add(Calendar.DATE, -7);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         final String country = getCountry();
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                retrieveJson("코로나",nowDate.format(date_now),API_KEY);
+                retrieveJson("코로나",nowDate.format(c.getTime()),nowDate.format(date_now),API_KEY);
             }
         });
-        retrieveJson("코로나",nowDate.format(date_now),API_KEY);
+        retrieveJson("코로나",nowDate.format(c.getTime()),nowDate.format(date_now),API_KEY);
     }
 
-    public void retrieveJson(String country,String date, String apiKey) {
-        Call<Headlines> call = ApiClient.getInstance().getApi().getSpecificData(country,date,apiKey);
+    public void retrieveJson(String country,String startDate,String endDate, String apiKey) {
+        Call<Headlines> call = ApiClient.getInstance().getApi().getSpecificData(country,startDate,endDate,apiKey);
         swipeRefreshLayout.setRefreshing(true);
         call.enqueue(new Callback<Headlines>() {
             @Override

@@ -17,7 +17,8 @@ public interface ApiInterface {
     @GET("everything")
     Call<Headlines> getSpecificData(
             @Query("q") String query,
-            @Query("from") String date,
+            @Query("from") String Startdate,
+            @Query("to") String Enddate,
             @Query("apiKey") String apiKey
     );
 }
