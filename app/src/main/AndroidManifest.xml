@@ -11,8 +11,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
-
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,7 +22,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyB6V42Q3_7SF1izFDzCXdlkwkhVmlV401M" />
+            android:value="AIzaSyCsXQ5SXtKqthFUvoXpY-OD3ge-vciryXM" />
         <uses-library android:name="org.apache.http.legacy" android:required="false"/>
         <activity android:name=".login.Loding"
             >
@@ -35,6 +34,7 @@
         </activity>
 
         <activity android:name=".login.LoginPage"/>
+
         <activity android:name=".News.NewsActivity"/>
         <activity android:name=".News.Detailed"/>
         <activity android:name=".MainActivity"/>
@@ -52,7 +52,8 @@
         <activity android:name=".join.RegisterSuccess"/>
         <activity android:name=".join.RegisterSelect"/>
         <activity android:name=".join.BossRegister.BossRegister"/>
-        <activity android:name=".Gps.SubActivity"
+        <activity android:name=".Gps.Timeline"/>
+        <activity android:name=".Gps.TimelineMap"
             android:launchMode="singleTask"/>
 
        <service android:name=".Giofencing.GpsService">
