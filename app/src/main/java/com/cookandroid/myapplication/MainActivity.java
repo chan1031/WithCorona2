@@ -88,10 +88,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startService(GpsServiceIntent);
         // ------------------
 
-        getKorea = (TextView) findViewById(R.id.getKorea);
         getDate = (TextView) findViewById(R.id.getDate);
         getDateTime = (TextView) findViewById(R.id.getDateTime);
-        getForeign = (TextView) findViewById(R.id.getForeign);
 
         getDate.setText(year + "." + month + "." + day + " 현재 코로나 위기 경보 ");
         getDateTime.setText(year + "." + month + "." + day + " 00:00 기준");
@@ -372,11 +370,15 @@ public boolean onNavigationItemSelected(MenuItem item){
                 Manifest.permission.ACCESS_FINE_LOCATION);
         int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(MainActivity.this,
                 Manifest.permission.ACCESS_COARSE_LOCATION);
+        int NFCPermission = ContextCompat.checkSelfPermission(MainActivity.this,
+                Manifest.permission.READ_PHONE_STATE);
 
         if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
-                hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED) {
+                hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED &&
+                    NFCPermission == PackageManager.PERMISSION_GRANTED) {
         } else {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, REQUIRED_PERMISSIONS[0])) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, REQUIRED_PERMISSIONS[0]) &&
+                    ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, REQUIRED_PERMISSIONS[1])) {
                 Toast.makeText(MainActivity.this, "이 앱을 실행하려면 위치 접근 권한이 필요합니다.", Toast.LENGTH_LONG).show();
                 ActivityCompat.requestPermissions(MainActivity.this, REQUIRED_PERMISSIONS,
                         PERMISSIONS_REQUEST_CODE);

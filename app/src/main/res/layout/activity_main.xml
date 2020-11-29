@@ -106,121 +106,11 @@
                 </FrameLayout>
             </LinearLayout>
 
-
-            <!--일일확진자 layout-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:orientation="horizontal"
-                android:layout_gravity="center">
-
-                <TextView
-                    android:layout_width="104dp"
-                    android:layout_height="40dp"
-                    android:layout_marginLeft="35dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/shape_definite_one"
-                    android:gravity="center"
-                    android:text="일일확진자"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold"
-                    android:textSize="17dp" />
-
-                <TextView
-                    android:layout_marginTop="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="35dp"
-                    android:text=" = "
-                    android:textStyle="bold"
-                    android:gravity="center"/>
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:layout_marginTop="5dp"
-                        android:layout_width="104dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/shape_two">
-
-                    </ImageView>
-
-                    <LinearLayout
-                        android:layout_width="104dp"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="75dp"
-                            android:layout_height="40dp"
-                            android:layout_marginTop="5dp"
-                            android:gravity="center"
-
-                            android:text="국내발생"
-                            android:textColor="#4E5259"
-                            android:textSize="17dp" />
-
-                        <TextView
-                            android:id="@+id/getKorea"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:text="71"
-                            android:textSize="19dp"
-                            android:textColor="#E76363"
-                            android:textStyle="bold">
-
-                        </TextView>
-                    </LinearLayout>
-                </FrameLayout>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="33dp"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:text=" + "
-                    android:textStyle="bold" />
-                <FrameLayout
-                    android:layout_width="104dp"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:layout_marginTop="5dp"
-                        android:layout_width="104dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/shape_three"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-
-                        <TextView
-                            android:layout_width="75dp"
-                            android:layout_height="40dp"
-                            android:layout_marginTop="5dp"
-
-                            android:gravity="center"
-                            android:text="해외유입 "
-                            android:textColor="#4E5259"
-                            android:textSize="17dp" />
-
-                        <TextView
-                            android:id="@+id/getForeign"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:text="54"
-                            android:textColor="#E76363"
-                            android:textSize="19dp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                </FrameLayout>
-            </LinearLayout>
-
-
             <!--확진자 통계 layout-->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="305dp"
-
                 android:background="#EEEEEE"
                 android:orientation="vertical">
 
@@ -264,7 +154,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="75dp"
                             android:layout_marginTop="50dp"
-
                             android:textStyle="bold"
                             android:textSize="23dp"
                             android:textColor="#E76363" />
@@ -387,161 +276,91 @@
                     android:layout_height="140dp"
                     android:background="@color/colorBackground"
                     android:layout_gravity="center">
-
-                    <!--누적 검사수-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:id="@+id/textView16"
-                            android:layout_width="wrap_content"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="15dp"
-                            android:text="누적 검사수"
-                            android:textSize="17dp"/>
-
-                        <TextView
-                            android:id="@+id/ACC_EXAM_CNT"
-                            android:layout_width="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingTop="15dp"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp">
+                            <TextView
+                                android:id="@+id/textView16"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="누적 검사수"
+                                android:textSize="17dp"/>
+                            <TextView
+                                android:id="@+id/ACC_EXAM_CNT"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="right"
+                                android:text=" 건"
+                                android:textSize="17dp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-
-                            android:layout_marginTop="15dp"
-
-                            android:text=" 건"
-                            android:textSize="17dp" />
-
-
+                            android:orientation="horizontal"
+                            android:paddingTop="15dp"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp">
+                            <TextView
+                                android:id="@+id/textView17"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="누적 검사완료수"
+                                android:textSize="17dp"/>
+                            <TextView
+                                android:id="@+id/ACC_EXAM_COMP_CNT"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="right"
+                                android:text=" 건"
+                                android:textSize="17dp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingTop="15dp"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp">
+                            <TextView
+                                android:id="@+id/textView18"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="누적 확진율"
+                                android:textSize="17dp"/>
+                            <TextView
+                                android:id="@+id/ACC_DEF_RATE"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="right"
+                                android:text=" %"
+                                android:textSize="17dp" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp">
+                            <TextView
+                                android:id="@+id/textView19"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="(결과양성/총 검사완료수*100%)"
+                                android:textSize="12dp"/>
+                        </LinearLayout>
                     </LinearLayout>
 
-                    <!--누적 검사완료수-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/textView14"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="50dp"
-                            android:text="누적 검사완료수"
-                            android:textSize="17dp"/>
-
-
-                        <TextView
-                            android:id="@+id/ACC_EXAM_COMP_CNT"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-
-                            android:layout_marginTop="50dp"
-
-                            android:text=" 건"
-                            android:textSize="17dp" />
-
-                    </LinearLayout>
-
-                    <!--누적 확진율-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:id="@+id/textView19"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="85dp"
-                            android:text="누적 확진율"
-                            android:textSize="17dp"/>
-
-                        <TextView
-                            android:id="@+id/ACC_DEF_RATE"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="191dp"
-                            android:layout_marginLeft="191dp"
-                            android:layout_marginTop="85dp"
-                            android:gravity="right"
-                            android:text=" %"
-                            android:textSize="17dp"/>
-
-
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:id="@+id/textView20"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="105dp"
-                            android:text="(결과양성/총 검사완료수*100%)"
-                            android:textSize="12dp"/>
-
-
-                    </LinearLayout>
 
                 </FrameLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="251dp"
-                    android:background="#eee"
-                    android:orientation="vertical">
-
-                    <TextView
-
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:gravity="center"
-                        android:textSize="17dp"
-                        android:text="누적 확진율" />
-                    <FrameLayout
-                        android:layout_width="370dp"
-                        android:layout_height="180dp"
-                        android:background="@color/colorBackground"
-                        android:layout_gravity="center">
-
-                    </FrameLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="392dp"
-                android:layout_marginTop="45dp"
-                android:background="#eee"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView22"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:gravity="center"
-                    android:text="확진자 추이"
-                    android:textSize="17dp" />
-
-                <FrameLayout
-                    android:layout_width="370dp"
-                    android:layout_height="300dp"
-                    android:layout_gravity="center"
-                    android:background="@color/colorBackground"></FrameLayout>
 
             </LinearLayout>
         </LinearLayout>
