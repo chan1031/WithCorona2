@@ -25,7 +25,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.cookandroid.myapplication.Giofencing.GpsService;
-import com.cookandroid.myapplication.Gps.SubActivity;
+import com.cookandroid.myapplication.Gps.Timeline;
 import com.cookandroid.myapplication.NFC.NfcReceive;
 import com.cookandroid.myapplication.NFC.NfcSend;
 import com.cookandroid.myapplication.News.NewsActivity;
@@ -284,7 +284,7 @@ public boolean onNavigationItemSelected(MenuItem item){
                 startActivity(intent);
                 break;
             case R.id.navigation_item_timeline:
-                intent=new Intent(getApplicationContext(), SubActivity.class);
+                intent=new Intent(getApplicationContext(), Timeline.class);
                 startActivity(intent);
                 break;
             case R.id.navigation_item_nfc:
