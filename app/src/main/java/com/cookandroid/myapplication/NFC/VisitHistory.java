@@ -82,7 +82,7 @@ public class VisitHistory extends AppCompatActivity {
             }
 
         }
-        text.setText(nowDate.format(date_now)+"방문 기록이 확인 되었습니다. \n" + phoneNumber);
+        text.setText(nowDate.format(date_now)+"\n"+phoneNumber+"\n방문 기록이 확인 되었습니다.");
 
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override

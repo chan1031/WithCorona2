@@ -45,6 +45,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".NFC.NfcSend"/>
+        <activity android:name=".NFC.VisitHistory"/>
         <activity android:name=".Option"/>
         <activity android:name=".PasswordChange"/>
         <activity android:name=".join.RegisterTerms"/>
