@@ -52,10 +52,10 @@
         <activity android:name=".join.RegisterSuccess"/>
         <activity android:name=".join.RegisterSelect"/>
         <activity android:name=".join.BossRegister.BossRegister"/>
-        <activity android:name=".Gps.Timeline"/>
+        <activity android:name=".Gps.Timeline"
+            android:launchMode="singleTask"/>
         <activity android:name=".Gps.TimelineMap"
             android:launchMode="singleTask"/>
-
        <service android:name=".Giofencing.GpsService">
 
         </service>

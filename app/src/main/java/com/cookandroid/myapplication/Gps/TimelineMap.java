@@ -6,6 +6,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
@@ -18,6 +21,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,6 +32,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.cookandroid.myapplication.Gps.locationDB.DBHelper;
 import com.cookandroid.myapplication.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -53,6 +59,7 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -73,9 +80,12 @@ public class TimelineMap extends AppCompatActivity
     String textBeforeLocation;
     ArrayList<String> locationList;
     ArrayList<String> timeList;
+    ArrayList<String> timeHistoryList;
     ArrayList<Polyline> polylines;
     PolylineOptions polylineOptions;
     ArrayList<String> list;
+
+    String userID;
 
     private static final String TAG = "googlemap_example";
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
@@ -110,6 +120,8 @@ public class TimelineMap extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        userID = getIntent().getStringExtra("userID");
             //액티비티 시작후 저장된 데이터 불러오기(경로)
             list = getStringArrayPref(this, SETTINGS_PLAYER_JSON);
             if (list != null) {
@@ -170,11 +182,13 @@ public class TimelineMap extends AppCompatActivity
     public void onClickList(View view){
         //경로를 텍스트로 뿌려줄때 데이터 다른 레이아웃으로 이동
         Intent intent = new Intent(this, Timeline.class);
-        intent.putExtra("getLocation",textLocation);
-        intent.putExtra("getTime",formatDate);
-        intent.putExtra("getBeforeLocation",textBeforeLocation);
-        intent.putExtra("getLocationList",locationList);
-        intent.putExtra("getTImeList",timeList);
+//        intent.putExtra("getLocation",textLocation);
+//        intent.putExtra("getTime",formatDate);
+//        intent.putExtra("getBeforeLocation",textBeforeLocation);
+//        intent.putExtra("getLocationList",locationList);
+//        intent.putExtra("getTImeList",timeList);
+//        intent.putExtra("gettimeHistoryList",timeHistoryList);
+        ((Timeline)Timeline.mContext).listv(userID);
         startActivity(intent);
     }
 
@@ -257,32 +271,11 @@ public class TimelineMap extends AppCompatActivity
                     beforeLocation=location;
                 }
 
-                String markerTitle = getCurrentAddress(currentPosition);
+                String markerTitle = getCurrentAddress(currentPosition,userID);
                 String markerSnippet = "위도:" + String.valueOf(location.getLatitude())
                         + " 경도:" + String.valueOf(location.getLongitude());
 
                 Log.d(TAG, "onLocationResult : " + markerSnippet);
-
-                long now = System.currentTimeMillis();
-                // 현재시간을 date 변수에 저장한다.
-                Date date = new Date(now);
-                // 시간을 나타냇 포맷을 정한다 ( yyyy/MM/dd 같은 형태로 변형 가능 )
-                SimpleDateFormat sdfNow = new SimpleDateFormat("HH:mm:ss aa");
-                SimpleDateFormat Time = new SimpleDateFormat("yy/mm/dd HH:mm:ss aa");
-                timeHistory = Time.format(date);
-                // nowDate 변수에 값을 저장한다.
-                formatDate = sdfNow.format(date);
-
-                Log.d(TAG, "onLocationResult : " + markerSnippet);
-
-                Log.d(TAG, "현재시간 : " + formatDate);
-
-                if (timeList==null){
-                    timeList= new ArrayList<String>();
-                    timeList.add(formatDate.toString());
-                }
-                int size = timeList.size();
-                Log.d("time리스트 사이즈", String.valueOf(size));
 
                 //현재 위치에 마커 생성하고 이동
                 setCurrentLocation(location, beforeLocation, markerTitle, markerSnippet);
@@ -294,6 +287,7 @@ public class TimelineMap extends AppCompatActivity
                 }
                 mCurrentLocatiion = location;
             }
+            DBDelete();
 
 
         }
@@ -413,7 +407,7 @@ public class TimelineMap extends AppCompatActivity
 
 
 
-    public String getCurrentAddress(LatLng latlng) {
+    public String getCurrentAddress(LatLng latlng,String userID) {
 
         //지오코더... GPS를 주소로 변환
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
@@ -442,6 +436,17 @@ public class TimelineMap extends AppCompatActivity
             return "주소 미발견";
 
         } else {
+            long now = System.currentTimeMillis();
+            // 현재시간을 date 변수에 저장한다.
+            Date date = new Date(now);
+            // 시간을 나타냇 포맷을 정한다 ( yyyy/MM/dd 같은 형태로 변형 가능 )
+            SimpleDateFormat sdfNow = new SimpleDateFormat("HH:mm aa");
+            SimpleDateFormat Time = new SimpleDateFormat("yyyy-MM-dd HH:mm aa");
+            timeHistory = Time.format(date);
+            // nowDate 변수에 값을 저장한다.
+            formatDate = sdfNow.format(date);
+            Log.d(TAG, "현재시간 : " + formatDate);
+
             Log.d("변환주소",addresses.get(0).getAddressLine(0).toString());
             textLocation = addresses.get(0).getAddressLine(0).toString();
             //위치 중복 저장 방지 장치
@@ -450,23 +455,54 @@ public class TimelineMap extends AppCompatActivity
             }Log.d("이전 위치",textBeforeLocation);
         }
         //위치 중복 저장 방지 장치
-        if (locationList == null){
-            locationList= new ArrayList<String>();
-            locationList.add(textLocation);
-            Log.d("locationlist 사이즈", String.valueOf(locationList.size()) );
-        }else if (!locationList.isEmpty()){
-            if (locationList.get(locationList.size()-1)!=textBeforeLocation||!textBeforeLocation.equals(textLocation)) {
-                locationList.add(textLocation);
+        DBHelper DBHelper = new DBHelper(this);
+
+        //테이블에 데이터가 없을때
+        SQLiteDatabase dbSelect = DBHelper.getReadableDatabase();
+        String sqlSelect = "select * from RouteHistory where mb_id='"+userID+"' order by date";
+        Cursor cursor = dbSelect.rawQuery(sqlSelect, null);
+        int cusorC = cursor.getCount();
+        System.out.println("insert(select) 행 개수 ------: "+cusorC);
+        if (cusorC==0){
+            SQLiteDatabase db = DBHelper.getWritableDatabase();
+            String sqlInsert = "insert into RouteHistory(mb_id,mb_location,date,time) values('"+userID+"','"+textLocation+"','"+timeHistory+"','"+formatDate+"')";
+            db.execSQL(sqlInsert);
+            SQLiteDatabase dbSelectInsert = DBHelper.getReadableDatabase();
+            String sqlSelectInsert = "select * from RouteHistory where mb_id='"+userID+"' order by date";
+            Cursor cursorS = dbSelectInsert.rawQuery(sqlSelectInsert, null);
+            System.out.println("insert후 (select) 행 개수 ------: "+cursorS.getCount());
+            db.close();
+        }
+        else if(cusorC!=0){
+            cursor.moveToLast();
+            String location = cursor.getString(cursor.getColumnIndex("mb_location"));
+            Log.d("db 마지막위치 확인-------:", location);
+            if (location != textBeforeLocation && !textBeforeLocation.equals(textLocation)){
+                SQLiteDatabase db = DBHelper.getWritableDatabase();
+                String sqlInsert = "insert into RouteHistory(mb_id,mb_location,date,time) values('"+userID+"','"+textLocation+"','"+timeHistory+"','"+formatDate+"')";
+                db.execSQL(sqlInsert);
+                db.close();
+                //서버 업로드 userID, textLocation, timeHistory 올리면 되요
                 if (!textBeforeLocation.equals(textLocation)) {
                     textBeforeLocation = textLocation;
-                    Log.d("List 넣고 이전 위치 업데이트", textBeforeLocation);
-                }
-                timeList.add(formatDate);
-            }
-        }
+                    Log.d("db 넣고 이전 위치 업데이트", textBeforeLocation);
 
-        System.out.println(locationList);
-        Log.d("location리스트 사이즈", String.valueOf(locationList.size()));
+                }
+            }
+        }dbSelect.close();
+        SQLiteDatabase dbSelectRow = DBHelper.getReadableDatabase();
+        String sqlSelectRow = "select * from RouteHistory where mb_id='"+userID+"' order by date";
+        Cursor cursorR = dbSelectRow.rawQuery(sqlSelectRow, null);
+        while(cursorR.moveToNext()) {
+            // 첫번째에서 다음 레코드가 없을때까지 읽음
+            String id = cursor.getString(cursor.getColumnIndex("mb_id"));
+            String location = cursor.getString(cursor.getColumnIndex("mb_location"));   // 두번째 속성
+            String datetime = cursor.getString(cursor.getColumnIndex("date"));
+            String time = cursor.getString(cursor.getColumnIndex("time"));
+            System.out.println("sqlDB 테이블 출력"+id+","+location+","+datetime+","+time);
+        }
+        Log.d("테이블 행 개수", String.valueOf(cursorR.getCount()));
+        dbSelectRow.close();
         return addresses.get(0).getAddressLine(0).toString();
     }
 
@@ -676,6 +712,26 @@ public class TimelineMap extends AppCompatActivity
         }
     }
 
+    public void DBDelete(){
+        Calendar week = Calendar.getInstance();
+        week.add(Calendar.DATE , -14);
+        String beforeWeek = new SimpleDateFormat("yyyy-MM-dd").format(week.getTime());
+        System.out.println(beforeWeek);
+
+        DBHelper DBHelper = new DBHelper(this);
+        SQLiteDatabase db = DBHelper.getWritableDatabase();
+        String sqlSelectData= "select exists ( select * FROM RouteHistory WHERE mb_id='"+userID+"' and date LIKE '%"+beforeWeek+"%') as success";
+        Cursor cursor = db.rawQuery(sqlSelectData, null);
+        if(cursor != null) {
+            cursor.moveToFirst();
+            int success = cursor.getInt(cursor.getColumnIndex("success"));
+            if (success > 0) {
+                String sqlDelete = "DELETE FROM RouteHistory WHERE mb_id='"+userID+"' and date LIKE '%"+ beforeWeek +"%'";
+                db.execSQL(sqlDelete);
+            }db.close();
+        }
+        db.close();
+    }
 
 
 }

@@ -26,6 +26,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.cookandroid.myapplication.Giofencing.GpsService;
 import com.cookandroid.myapplication.Gps.Timeline;
+import com.cookandroid.myapplication.Gps.TimelineMap;
 import com.cookandroid.myapplication.NFC.NfcReceive;
 import com.cookandroid.myapplication.NFC.NfcSend;
 import com.cookandroid.myapplication.News.NewsActivity;
@@ -283,6 +284,7 @@ public boolean onNavigationItemSelected(MenuItem item){
                 break;
             case R.id.navigation_item_timeline:
                 intent=new Intent(getApplicationContext(), Timeline.class);
+                intent.putExtra("userID",userID);
                 startActivity(intent);
                 break;
             case R.id.navigation_item_nfc:
