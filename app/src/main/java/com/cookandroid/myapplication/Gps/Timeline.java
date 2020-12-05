@@ -67,14 +67,6 @@ public class Timeline extends AppCompatActivity {
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-        Intent intent = getIntent();
-        getLocation = intent.getStringExtra("getLocation");
-        getTime = intent.getStringExtra("getTime");
-        getBeforeLocation = intent.getStringExtra("getBeforeLocation");
-        ArrayList<String> locationList = (ArrayList<String>) intent.getSerializableExtra("getLocationList");
-        ArrayList<String> timeList = (ArrayList<String>) intent.getSerializableExtra("getTImeList");
-
         //db = openOrCreateDatabase(dbname,MODE_PRIVATE,null);
 
         long now = System.currentTimeMillis();
@@ -107,6 +99,7 @@ public class Timeline extends AppCompatActivity {
                 listView.setAdapter(adapter);
             }else if (count>1) {
                 while(cursor.moveToNext()) {
+                    adapter.items.clear();
                     // 첫번째에서 다음 레코드가 없을때까지 읽음
                     String location = cursor.getString(cursor.getColumnIndex("mb_location"));   // 두번째 속성
                     String time = cursor.getString(cursor.getColumnIndex("time"));

@@ -495,10 +495,10 @@ public class TimelineMap extends AppCompatActivity
         Cursor cursorR = dbSelectRow.rawQuery(sqlSelectRow, null);
         while(cursorR.moveToNext()) {
             // 첫번째에서 다음 레코드가 없을때까지 읽음
-            String id = cursor.getString(cursor.getColumnIndex("mb_id"));
-            String location = cursor.getString(cursor.getColumnIndex("mb_location"));   // 두번째 속성
-            String datetime = cursor.getString(cursor.getColumnIndex("date"));
-            String time = cursor.getString(cursor.getColumnIndex("time"));
+            String id = cursorR.getString(cursorR.getColumnIndex("mb_id"));
+            String location = cursorR.getString(cursorR.getColumnIndex("mb_location"));   // 두번째 속성
+            String datetime = cursorR.getString(cursorR.getColumnIndex("date"));
+            String time = cursorR.getString(cursorR.getColumnIndex("time"));
             System.out.println("sqlDB 테이블 출력"+id+","+location+","+datetime+","+time);
         }
         Log.d("테이블 행 개수", String.valueOf(cursorR.getCount()));
