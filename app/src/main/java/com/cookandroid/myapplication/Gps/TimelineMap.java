@@ -479,7 +479,7 @@ public class TimelineMap extends AppCompatActivity
             cursor.moveToLast();
             String location = cursor.getString(cursor.getColumnIndex("mb_location"));
             Log.d("db 마지막위치 확인-------:", location);
-            if (textBeforeLocation.equals(location) && !textBeforeLocation.equals(textLocation)){
+            if (!textBeforeLocation.equals(location) && !textBeforeLocation.equals(textLocation)){
                 SQLiteDatabase db = DBHelper.getWritableDatabase();
                 String sqlInsert = "insert into RouteHistory(mb_id,mb_location,date,time) values('"+userID+"','"+textLocation+"','"+timeHistory+"','"+formatDate+"')";
                 db.execSQL(sqlInsert);
