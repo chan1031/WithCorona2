@@ -91,7 +91,6 @@ public class Timeline extends AppCompatActivity {
             adapter.addItem(new TImeline_Iist_Item(R.drawable.w, "경로가 없습니다.", "" , ""));
             listView.setAdapter(adapter);
         }else if(cursor != null && cursor.getCount()>0){
-            cursor.moveToFirst();
             if (count==1) {
                 String location = cursor.getString(cursor.getColumnIndex("mb_location"));
                 String time = cursor.getString(cursor.getColumnIndex("time"));
@@ -99,7 +98,6 @@ public class Timeline extends AppCompatActivity {
                 listView.setAdapter(adapter);
             }else if (count>1) {
                 while(cursor.moveToNext()) {
-                    adapter.items.clear();
                     // 첫번째에서 다음 레코드가 없을때까지 읽음
                     String location = cursor.getString(cursor.getColumnIndex("mb_location"));   // 두번째 속성
                     String time = cursor.getString(cursor.getColumnIndex("time"));
@@ -109,6 +107,7 @@ public class Timeline extends AppCompatActivity {
             }
             System.out.println("select ok");
         }
+        cursor.close();
         db.close();
 
 
@@ -137,7 +136,6 @@ public class Timeline extends AppCompatActivity {
             adapter.addItem(new TImeline_Iist_Item(R.drawable.w, "경로가 없습니다.", "" , ""));
             listView.setAdapter(adapter);
         }else if(cursor != null && cursor.getCount()>0){
-            cursor.moveToFirst();
             if (count==1) {
                 String location = cursor.getString(cursor.getColumnIndex("mb_location"));
                 String time = cursor.getString(cursor.getColumnIndex("time"));
@@ -154,6 +152,7 @@ public class Timeline extends AppCompatActivity {
             }
             System.out.println("select ok");
         }
+        cursor.close();
         db.close();
     }
 
@@ -243,7 +242,6 @@ public class Timeline extends AppCompatActivity {
                                 adapter.addItem(new TImeline_Iist_Item(R.drawable.w, "이동", time , location));
                                 listView.setAdapter(adapter);
                             }
-
                             while(cursor.moveToNext()){
                                 String location = cursor.getString(cursor.getColumnIndex("mb_location"));
                                 String time = cursor.getString(cursor.getColumnIndex("time"));
@@ -252,6 +250,7 @@ public class Timeline extends AppCompatActivity {
                             }
                         }
                         listView.setAdapter(adapter);
+                        cursor.close();
                         db.close();
 
                     }

@@ -445,6 +445,7 @@ public class TimelineMap extends AppCompatActivity
             timeHistory = Time.format(date);
             // nowDate 변수에 값을 저장한다.
             formatDate = sdfNow.format(date);
+
             Log.d(TAG, "현재시간 : " + formatDate);
 
             Log.d("변환주소",addresses.get(0).getAddressLine(0).toString());
@@ -461,47 +462,49 @@ public class TimelineMap extends AppCompatActivity
         SQLiteDatabase dbSelect = DBHelper.getReadableDatabase();
         String sqlSelect = "select * from RouteHistory where mb_id='"+userID+"' order by date";
         Cursor cursor = dbSelect.rawQuery(sqlSelect, null);
-        int cusorC = cursor.getCount();
-        System.out.println("insert(select) 행 개수 ------: "+cusorC);
-        if (cusorC==0){
+        System.out.println("insert(select) 행 개수 ------: "+cursor.getCount());
+        if (cursor.getCount()==0){
             SQLiteDatabase db = DBHelper.getWritableDatabase();
             String sqlInsert = "insert into RouteHistory(mb_id,mb_location,date,time) values('"+userID+"','"+textLocation+"','"+timeHistory+"','"+formatDate+"')";
             db.execSQL(sqlInsert);
+            db.close();
             SQLiteDatabase dbSelectInsert = DBHelper.getReadableDatabase();
             String sqlSelectInsert = "select * from RouteHistory where mb_id='"+userID+"' order by date";
             Cursor cursorS = dbSelectInsert.rawQuery(sqlSelectInsert, null);
             System.out.println("insert후 (select) 행 개수 ------: "+cursorS.getCount());
-            db.close();
+            cursorS.close();
+            dbSelectInsert.close();
         }
-        else if(cusorC!=0){
+        else if(cursor.getCount()!=0){
             cursor.moveToLast();
             String location = cursor.getString(cursor.getColumnIndex("mb_location"));
             Log.d("db 마지막위치 확인-------:", location);
-            if (location != textBeforeLocation && !textBeforeLocation.equals(textLocation)){
+            if (textBeforeLocation.equals(location) && !textBeforeLocation.equals(textLocation)){
                 SQLiteDatabase db = DBHelper.getWritableDatabase();
                 String sqlInsert = "insert into RouteHistory(mb_id,mb_location,date,time) values('"+userID+"','"+textLocation+"','"+timeHistory+"','"+formatDate+"')";
                 db.execSQL(sqlInsert);
                 db.close();
-                //서버 업로드 userID, textLocation, timeHistory 올리면 되요
                 if (!textBeforeLocation.equals(textLocation)) {
                     textBeforeLocation = textLocation;
                     Log.d("db 넣고 이전 위치 업데이트", textBeforeLocation);
 
                 }
             }
-        }dbSelect.close();
+        }cursor.close();
+        dbSelect.close();
         SQLiteDatabase dbSelectRow = DBHelper.getReadableDatabase();
         String sqlSelectRow = "select * from RouteHistory where mb_id='"+userID+"' order by date";
         Cursor cursorR = dbSelectRow.rawQuery(sqlSelectRow, null);
-        while(cursorR.moveToNext()) {
+        while (cursorR.moveToNext()) {
             // 첫번째에서 다음 레코드가 없을때까지 읽음
             String id = cursorR.getString(cursorR.getColumnIndex("mb_id"));
             String location = cursorR.getString(cursorR.getColumnIndex("mb_location"));   // 두번째 속성
             String datetime = cursorR.getString(cursorR.getColumnIndex("date"));
             String time = cursorR.getString(cursorR.getColumnIndex("time"));
-            System.out.println("sqlDB 테이블 출력"+id+","+location+","+datetime+","+time);
+            System.out.println("sqlDB 테이블 출력" + id + "," + location + "," + datetime + "," + time);
         }
         Log.d("테이블 행 개수", String.valueOf(cursorR.getCount()));
+        cursorR.close();
         dbSelectRow.close();
         return addresses.get(0).getAddressLine(0).toString();
     }
@@ -722,13 +725,14 @@ public class TimelineMap extends AppCompatActivity
         SQLiteDatabase db = DBHelper.getWritableDatabase();
         String sqlSelectData= "select exists ( select * FROM RouteHistory WHERE mb_id='"+userID+"' and date LIKE '%"+beforeWeek+"%') as success";
         Cursor cursor = db.rawQuery(sqlSelectData, null);
-        if(cursor != null) {
+        if(cursor != null && cursor.getCount() !=0) {
             cursor.moveToFirst();
             int success = cursor.getInt(cursor.getColumnIndex("success"));
             if (success > 0) {
-                String sqlDelete = "DELETE FROM RouteHistory WHERE mb_id='"+userID+"' and date LIKE '%"+ beforeWeek +"%'";
+                String sqlDelete = "DELETE FROM RouteHistory WHERE mb_id='test' and date LIKE '%"+ beforeWeek +"%'";
                 db.execSQL(sqlDelete);
-            }db.close();
+            }cursor.close();
+            db.close();
         }
         db.close();
     }
