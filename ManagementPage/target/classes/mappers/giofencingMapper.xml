@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.board.mappers.giofencing">
+	<!-- 게시물 목록 -->
+	<select id="enterPositiveList" resultType="com.board.domain.GiofencingVO">
+		select a.mb_id,b.mb_name, a.time From LocationHistory as a, MBER as b 
+		where a.mb_id = b.mb_id and ${select} like CONCAT('%',#{searchPositiveName},'%') and b.corona_positive = true 
+		order by a.time;
+	</select>
+	
+	<select id="meetPositiveList" resultType="com.board.domain.GiofencingVO">
+		select a.mb_id,b.mb_name, a.time From LocationHistory as a, MBER as b 
+		where a.mb_id = b.mb_id and b.corona_positive = false and a.time >= #{minTime} and ${select} like CONCAT('%',#{searchMeetName},'%') 
+		order by a.time
+	</select>
+	
+	<select id="getMinTime" resultType="string">
+		select a.time From LocationHistory as a, MBER as b where a.mb_id = b.mb_id and b.corona_positive = true order by a.time limit 1
+	</select>
+</mapper>

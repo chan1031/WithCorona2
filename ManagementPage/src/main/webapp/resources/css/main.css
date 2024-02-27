@@ -1,0 +1,324 @@
+@CHARSET "UTF-8";
+
+a:link {color: #000; text-decoration: none;}
+ a:visited { color: #000; text-decoration: none;}
+
+
+
+.logo{
+	position:absolute;
+	left:20px;
+	margin-top:38px;
+
+}
+
+ui, li{
+	position:relative;
+list-style:none;
+float:right;
+margin-right:100px;
+font-family:나눔스퀘어_ac Light;
+font-size:20px;
+margin-bottom:12px;
+text-align:center;
+margin-top:68px;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  /* width: 100% */
+  left: 0;
+  right: 0;
+  background:#fefefe;
+  box-shadow:0 1px 3px 0 rgba(0,0,0,0.50);
+  z-index:99999;
+}
+
+
+table {
+	width: auto;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+td, th {
+	font-size: 10pt;
+	border: 1px solid #EBEBEB;
+	height: 35px;
+	padding: 2px;
+background-color: #fff;
+}
+
+th {
+	background-color: #F9F9F9;
+	color: #000000;
+	font-family: 나눔스퀘어_ac Regular;
+	font-size: 18px;
+}
+
+tr td {
+	color: #000000;
+	font-family: 나눔스퀘어_ac Light;
+		font-size: 17px;
+}
+
+input {
+	height: 20px;
+	width: 200px;
+}
+
+input[type="submit"], [type="reset"], [type="button"] {
+	height: 30px;
+	width: 120px;
+	background-color: #ffffff;
+}
+table{
+	width:800px;
+}
+#accessTime{
+	width:350px;
+}
+
+#id{
+	width:200px;
+}
+#name{
+	width:150px;
+}
+
+
+input#Giofencing{
+
+    margin: 0;
+
+
+font-family:나눔스퀘어_ac Light;
+  font-weight: 400;
+  font-size:16px;
+  text-align: center;
+  text-decoration: none;
+
+  width: auto;
+height: 28px;
+  border: 1px solid #000;
+  outline:0px;
+  background:#fff;
+  border-radius: 2px;
+
+}
+
+input#Giofencing:active {
+  background:#ddd;
+  color:#000;
+  border: 1px solid #fff;;
+  outline:0px;
+}
+
+input#Nfc{
+
+    margin: 0;
+
+
+font-family:나눔스퀘어_ac Light;
+  font-weight: 400;
+  font-size:16px;
+  text-align: center;
+  text-decoration: none;
+
+  width: auto;
+height: 28px;
+  border: 1px solid #000;
+  outline:0px;
+  background:#fff;
+  border-radius: 2px;
+
+}
+
+input#Nfc:active {
+  background:#ddd;
+  color:#000;
+  border: 1px solid #fff;;
+  outline:0px;
+}
+input#timeLine{
+
+    margin: 0;
+
+
+font-family:나눔스퀘어_ac Light;
+  font-weight: 400;
+  font-size:16px;
+  text-align: center;
+  text-decoration: none;
+
+  width: auto;
+height: 28px;
+  border: 1px solid #000;
+  outline:0px;
+  background:#fff;
+  border-radius: 2px;
+
+}
+
+input#timeLine:active {
+  background:#ddd;
+  color:#000;
+  border: 1px solid #fff;;
+  outline:0px;
+}
+
+input#list{
+
+    margin: 0;
+
+
+font-family:나눔스퀘어_ac Light;
+  font-weight: 400;
+  font-size:16px;
+  text-align: center;
+  text-decoration: none;
+
+  width: auto;
+height: 28px;
+  border: 1px solid #000;
+  outline:0px;
+  background:#fff;
+  border-radius: 2px;
+
+}
+
+input#list:active {
+  background:#ddd;
+  color:#000;
+  border: 1px solid #fff;;
+  outline:0px;
+}
+
+input#bossList{
+
+    margin: 0;
+
+
+font-family:나눔스퀘어_ac Light;
+  font-weight: 400;
+  font-size:16px;
+  text-align: center;
+  text-decoration: none;
+
+  width: auto;
+height: 28px;
+  border: 1px solid #000;
+  outline:0px;
+  background:#fff;
+  border-radius: 2px;
+
+}
+
+input#bossList:active {
+  background:#ddd;
+  color:#000;
+  border: 1px solid #fff;;
+  outline:0px;
+}
+input#positiveList{
+
+    margin: 0;
+
+
+font-family:나눔스퀘어_ac Light;
+  font-weight: 400;
+  font-size:16px;
+  text-align: center;
+  text-decoration: none;
+
+  width: auto;
+height: 28px;
+  border: 1px solid #000;
+  outline:0px;
+  background:#fff;
+  border-radius: 2px;
+
+}
+
+input#positiveList:active {
+  background:#ddd;
+  color:#000;
+  border: 1px solid #fff;;
+  outline:0px;
+}
+div.box_info{
+	top:130px;
+    position: absolute;
+    width: 100%;
+    height: 35px;
+    margin: 0 auto;
+    border-bottom:1px solid #e5e5e5;
+    background-color:#fff
+}
+div.inner_info{
+	font-family:나눔스퀘어_ac Light;
+	text-size:16px;
+	text-align:left;
+	top:5px;
+    position: relative;
+    max-width: 1500px;
+    height: 40px;
+    margin: 0 auto;
+
+}
+
+
+div.title{
+	text-align:left;
+	max-width: 1200px;
+	top:150px;
+	font-size:30px;
+	font-family:'NIXGONB-Vb';
+	    position: relative;
+}
+@font-face {
+     font-family: 'NIXGONB-Vb';
+     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/NIXGONB-Vb.woff') format('woff');
+     font-weight: normal;
+     font-style: normal;
+}
+div.tit_line{
+		max-width: 1200px;
+			
+		height:3px;
+		width:100%;
+		background:#000;
+}
+div.list{
+top:200px;
+    position: relative;
+}
+div.list_tit{
+	font-family:NEXON Lv2 Gothic;
+	font-size:25px;
+}
+
+@font-face {
+    font-family: 'NEXON Lv2 Gothic';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+div.footer{
+position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+  padding: 15px 0;
+  text-align: center;
+  color: #000;
+  background: #ddd;
+  font-family:나눔스퀘어_ac Light;
+}
+div.footer_box{
+	position: absolute;
+    left: 18%;
+    bottom: 0;
+}

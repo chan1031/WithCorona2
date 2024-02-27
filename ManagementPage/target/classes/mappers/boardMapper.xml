@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.board.mappers.board">
+
+	<!-- 게시물 목록 -->
+	<select id="list" resultType="com.board.domain.BoardVO">
+		select mb_name,mb_id,mb_tel,corona_positive from MBER
+				where ${select} like CONCAT('%',#{searchName},'%') order by mb_id desc
+	</select>
+	
+	<select id="positiveList" resultType="com.board.domain.BoardVO">
+		select mb_name,mb_id,mb_tel,corona_positive from MBER where corona_positive = true
+		and mb_name like CONCAT('%',#{searchName},'%')  
+		order by mb_id desc
+	</select>
+	
+</mapper>
